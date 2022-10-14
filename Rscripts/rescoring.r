@@ -67,7 +67,7 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
 
     for(k in 1:40){
 
-        results = list()
+        results <- list()
 
         #TODO: I will need to remake this query so that it works per tabl
         #grabbing the entire list of sessions 
