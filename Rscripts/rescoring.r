@@ -25,7 +25,7 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
         x=vector()
         tryCatch({
             rm(params)
-        }, error <- function(err){}
+        }, error = function(err){}
         )
         params <- matrix(,nrow =0 , ncol = 4)
         dimnames(params) <- list(c(),c("a","b","c","d"))
@@ -57,13 +57,14 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
             # print(new_theta)
             session_id <- list_unique_sessions[s,]
             theta <- new_theta
-            session_data_temp <- data.frame(session_id,theta)
+            session_data_tmp <- data.frame(session_id,theta)
             session_results_df <- rbind(session_results_df,session_data_tmp)
         }
 
     }
 
     for(k in 1:40){
+
         #remake 
             # I think the best way to change this would be to just create a dataframe that holds: 
             #   1d      Q#      score       sTheta <- the theta correlating to the session 
@@ -79,7 +80,7 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
         for(sdf in 1:nrow(session_results_df)){
 
             #Grabbing session_id, item_id and score from the table this makes a dataframe 
-            query_string <- paste0("SELECT item_id, score FROM ", {response_table}, "WHERE session_id = '", session_results_df[sdf,],"' ORDER BY item_id")
+            query_string <- paste0("SELECT item_id, score FROM ", {response_table}, "WHERE session_id = '", session_results_df[sdf,1],"' ORDER BY item_id")
             session_data_df<- concerto.table.query(query_string)
             #grabbing the theta: 
             session_id <- session_results_df[sdf,1]
@@ -87,8 +88,9 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
             #adding the theta to the data frame on every row
             session_data_df["stheta"] = theta;
             #adding this chunk to results
-            results <- cbind(results, session_data_df)
+            results <- rbind(results, session_data_df)
         }
+
         print(results)
 
     }
