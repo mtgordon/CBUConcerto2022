@@ -181,6 +181,7 @@ for (k in 1:40){
       binned_theta = integer(number_of_bins)
       binned_score = integer(number_of_bins)
       count = integer(number_of_bins)
+      
       for (j in 1:length(sorted_data)){
         bin = ceiling(j/(length(sorted_data)/number_of_bins))
         binned_theta[bin] = (binned_theta[bin]*count[bin] + sorted_data[[j]][[1]])/(count[bin]+1)

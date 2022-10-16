@@ -13,15 +13,14 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
     #creating the query for each unique session 
     query_string <- paste0("SELECT DISTINCT session_id FROM ", {response_table})
     list_unique_sessions <- concerto.table.query(query_string)
-    #TODO: make sure you get the actual size of a dataframe!!! not a list
+    
     for(s in 1:nrow(list_unique_sessions)){ #for each unique session:
 
         #grabbing the answers in each session
-        #TODO: Make sure that the data type from this query is iterable!
         #remember to add a ORDER BY 
         #NEW QUERY STRING I CAN USE! 
 
-        query_string <- paste0("SELECT score, item_id FROM ", {response_table}," WHERE session_id = '", list_unique_sessions[s,],"'' ORDER BY id")
+        query_string <- paste0("SELECT score, item_id FROM ", {response_table}," WHERE session_id = '", list_unique_sessions[s,],"' ORDER BY id")
         list_score_itemid_from_session <- concerto.table.query(query_string)
         x=vector()
         tryCatch({
@@ -31,7 +30,6 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
         params <- matrix(,nrow =0 , ncol = 4)
         dimnames(params) <- list(c(),c("a","b","c","d"))
         
-        #TODO: fix this loop length as well
         #iterate through all the answers in a given session
         for(i in 1:nrow(list_score_itemid_from_session)){
             
@@ -59,45 +57,40 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
             # print(new_theta)
             session_id <- list_unique_sessions[s,]
             theta <- new_theta
-            session_data <- data.frame(session_id,theta)
-            session_results_df <- rbind(session_results_df,session_data)
+            session_data_temp <- data.frame(session_id,theta)
+            session_results_df <- rbind(session_results_df,session_data_tmp)
         }
 
     }
 
     for(k in 1:40){
+        #remake 
+            # I think the best way to change this would be to just create a dataframe that holds: 
+            #   1d      Q#      score       sTheta <- the theta correlating to the session 
+            #   1       6       1          whatever
+            #   2       6       0  
+            #   3       6       1
+            #   4       6                 
+            #now I see what gordon was meaning by adding it to the db BUT WHAT THE ACUTAL HELL MAN!!!
 
-        results <- list()
+        results <- data.frame(question_number <-integer(), score <- integer(), stheta <- integer())
 
-        #TODO: I will need to remake this query so that it works per tabl
-        #grabbing the entire list of sessions 
+        #iterate through the df for the sessions we care about
+        for(sdf in 1:nrow(session_results_df)){
 
-        #the bottom % of the thetas grab the score of what they got
-
-        #grabbing the entire list of question #s
-        #grabbing the entire list of scores
-
-        query_string <- paste0("SELECT session_id, item_id, score FROM ", {response_table}, " ORDER BY id")
-        list_sessionid_itemid_score_from_table <- concerto.table.query(query_string)
-
-        for(b in 1:nrow(list_sessionid_itemid_score_from_table)){
-            session_id <- list_sessionid_itemid_score_from_table[b,1]
-            print(session_id)
-            question_number <- list_sessionid_itemid_score_from_table[b,2]
-            print(question_number)
-
-            result <- list_sessionid_itemid_score_from_table[b,3] 
-
-            #remake 
-            if(session_id%in%session_results_df$session_id){
-                theta = as.numeric(session_results_df$theta[[match(session_id,session_results_df$session_id)]])
-
-                if(length(results)<question_number){
-                    results[[question_number]] = list()
-                }
-                results[[question_number]][[length(results[[question_number]])+1]]=list(theta,result)
-            }
+            #Grabbing session_id, item_id and score from the table this makes a dataframe 
+            query_string <- paste0("SELECT item_id, score FROM ", {response_table}, "WHERE session_id = '", session_results_df[sdf,],"' ORDER BY item_id")
+            session_data_df<- concerto.table.query(query_string)
+            #grabbing the theta: 
+            session_id <- session_results_df[sdf,1]
+            theta <- as.numeric(session_results_df$theta[[match(session_id,session_results_df$session_id)]])
+            #adding the theta to the data frame on every row
+            session_data_df["stheta"] = theta;
+            #adding this chunk to results
+            results <- cbind(results, session_data_df)
         }
+        print(results)
+
     }
 
 #}
