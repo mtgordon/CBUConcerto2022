@@ -65,14 +65,13 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
 
     for(k in 1:40){
 
-        #remake 
+        
             # I think the best way to change this would be to just create a dataframe that holds: 
             #   1d      Q#      score       sTheta <- the theta correlating to the session 
             #   1       6       1          whatever
             #   2       6       0  
             #   3       6       1
             #   4       6                 
-            #now I see what gordon was meaning by adding it to the db BUT WHAT THE ACUTAL HELL MAN!!!
 
         results <- data.frame(question_number <-integer(), score <- integer(), stheta <- integer())
 
@@ -82,16 +81,56 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
             #Grabbing session_id, item_id and score from the table this makes a dataframe 
             query_string <- paste0("SELECT item_id, score FROM ", {response_table}, "WHERE session_id = '", session_results_df[sdf,1],"' ORDER BY item_id")
             session_data_df<- concerto.table.query(query_string)
+
             #grabbing the theta: 
             session_id <- session_results_df[sdf,1]
             theta <- as.numeric(session_results_df$theta[[match(session_id,session_results_df$session_id)]])
+
             #adding the theta to the data frame on every row
             session_data_df["stheta"] = theta;
+
             #adding this chunk to results
             results <- rbind(results, session_data_df)
         }
-
         print(results)
+        min_questions <- 10
+
+        #rescoring 
+        #for each question overall in the test 
+        for(q in 1:length(unique(results$question_number))){
+
+            # super disgusting, This is finding out how-
+            # many times a certain question number has been answered.
+            # Say if question 1 has been answered 5 times and is less-
+            # than the number of min_questions we don't want to rescore it 
+            if(nrow(results[which(results$question_number == q)]) < min_questions){
+                # get the p1 and p2 value from questionTable
+                # p1 = discernment 
+                # p2 = difficulty  
+                query_string <- paste0("SELECT p1, p2 FROM ",{question_table}, "WHERE id = " , q)
+
+                p1_p2_df <- concerto.table.query(query_string)
+                #this is another bad looking line, it is grabbing the session theta and score for the given question
+
+                sorted_data <- results[order(which(results$question_number == q))]
+
+                bin_size <- 5
+
+                # This is interesting to see.. ask Gordon 
+                number_of_bins <- ceiling(nrow(results[which(results$question_number == q)])/bin_size)
+
+                #ask Gordon why do this?
+                binned_theta = integer(number_of_bins)
+                binned_score = integer(number_of_bins)
+                count = integer(number_of_bins)
+
+                for(j in 1:nrow(sorted_data)){    
+                    
+                }
+
+            }
+        }
+        
 
     }
 
