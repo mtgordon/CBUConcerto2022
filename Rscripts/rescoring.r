@@ -66,12 +66,12 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
     for(k in 1:40){
 
         
-            # I think the best way to change this would be to just create a dataframe that holds: 
-            #   1d      Q#      score       sTheta <- the theta correlating to the session 
-            #   1       6       1          whatever
-            #   2       6       0  
-            #   3       6       1
-            #   4       6                 
+        # I think the best way to change this would be to just create a dataframe that holds: 
+        #   1d      Q#      score       sTheta <- the theta correlating to the session 
+        #   1       6       1          whatever
+        #   2       6       0  
+        #   3       6       1
+        #   4       6                 
 
         results <- data.frame(question_number <-integer(), score <- integer(), stheta <- integer())
 
