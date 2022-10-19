@@ -37,8 +37,8 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                 score <- list_score_itemid_from_session[i,1]
                 question_id <- list_score_itemid_from_session[i,2]
 
-                print(question_id)
-                print(score)
+                #print(question_id)
+                #print(score)
 
                 p1 <- 2
                 p2 <- 0
@@ -63,7 +63,7 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
 
     }
 
-    for(k in 1:40){
+    for(k in 1:1){ #Change this later back to 40 
 
         
         # I think the best way to change this would be to just create a dataframe that holds: 
@@ -92,19 +92,21 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
             #adding this chunk to results
             results <- rbind(results, session_data_df)
         }
+      	print(results)
         print(results)
-        min_questions <- 10
-
+        min_questions <- 3 #Change this later back to ten 
+      
+		print(unique(results$item_id))
+      	print(length(unique(results$item_id)))
         #rescoring 
-        #for each question overall in the test 
-        
-        for(q in 1:nrow(unique(results$question_number))){
+        #for each unique question that was answered in results
+        for(q in 1:length(unique(results$item_id))){
 
             # super disgusting, This is finding out how-
             # many times a certain question number has been answered.
             # Say if question 1 has been answered 5 times and is less-
             # than the number of min_questions we don't want to rescore it 
-            if(nrow(results[which(results$question_number == q)]) < min_questions){
+            if(nrow(results[which(results$item_id == q),]) > min_questions){ 
                 # get the p1 and p2 value from questionTable
                 # p1 = discernment 
                 # p2 = difficulty  
@@ -112,13 +114,17 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
 
                 p1_p2_df <- concerto.table.query(query_string)
                 #this is another bad looking line, it is grabbing the session theta and score for the given question
-
-                sorted_data <- results[order(which(results$question_number == q))]
-
+				print(p1_p2_df)
+                sorted_data <- results[which(results$item_id == q),]
+              
+				print("Sorted Data:")
+              	print(sorted_data)
                 bin_size <- 5
-
+              
+				discernment <- p1_p2_df[1,1]
+                difficulty <- p1_p2_df[1,2]
                 # This is interesting to see.. ask Gordon 
-                number_of_bins <- ceiling(nrow(results[which(results$question_number == q)])/bin_size)
+                number_of_bins <- ceiling(nrow(results[which(results$item_id == q),])/bin_size)
 
                 #ask Gordon why do this?
                 binned_theta = integer(number_of_bins)
@@ -126,11 +132,11 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                 count = integer(number_of_bins)
 
                 for(j in 1:nrow(sorted_data)){    
-                    3
+             
                     bin <- ceiling(j/(nrow(sorted_data))/number_of_bins)
                     #might have to change this 
-                    binned_theta[bin] <- (binned_theta*count[bin] + sorted_data[j,2])/(count[bin]+1) 
-                    binned_score[bin] <-(binned_score*count[bin] + sorted_data[j,1])/(count[bin]+1)  
+                    binned_theta[bin] <- (binned_theta*count[bin] + sorted_data[j,3])/(count[bin]+1) 
+                    binned_score[bin] <-(binned_score*count[bin] + sorted_data[j,2])/(count[bin]+1)  
                     count[bin] <- count[bin] + 1 
                 }
 
@@ -158,6 +164,8 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                     difficulty <- summary(fit)$coefficients[2,1]
 
                 }, warning = function(w){
+                  	print("Debug")
+                  	print(warning)
                     #if func fails, goto default 
                     discernment <- p1_p2_df[1,1]
                     difficulty <- p1_p2_df[1,2]
@@ -167,7 +175,7 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                         diff_param_start=coef(summary(fit))["diff_param","Estimate"]
 
                         fit <- nls(y~Func(x,discernment_param,diff_param),start=list(discernment_param=discernment_param_start, diff_param=diff_param_start),algorithm="port",lower=c(0,-4),upper=c(3,4),control = list(maxiter=1000, warnOnly=T))
-
+					
                         discernment = summary(fit)$coefficients[1,1]
                         difficulty = summary(fit)$coefficients[2,1]
                     },warning = function(w){
@@ -186,9 +194,9 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                 }
                 )
             }
+          print(discernment)
+          print(difficulty)
         }
-        
-
     }
 
 #}
