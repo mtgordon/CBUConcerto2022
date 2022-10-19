@@ -216,7 +216,7 @@ for (k in 1:40){
         diff_param_start = 1
       })
 
-
+      #how to fit a line to the data 
       Func <- function(x,discernment_param,diff_param){0.25 + (1-0.25)/(1+exp(-discernment_param*(x-diff_param)))}
 
 
