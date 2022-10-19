@@ -208,6 +208,7 @@ for (k in 1:40){
 
 
       tryCatch({
+        
         discernment_param_start = question_table$p1[[match(q,question_table$id)]]
         diff_param_start = question_table$p2[[match(q,question_table$id)]]
       }, error = function(err){

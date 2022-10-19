@@ -97,7 +97,8 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
 
         #rescoring 
         #for each question overall in the test 
-        for(q in 1:length(unique(results$question_number))){
+        
+        for(q in 1:nrow(unique(results$question_number))){
 
             # super disgusting, This is finding out how-
             # many times a certain question number has been answered.
@@ -125,9 +126,65 @@ session_results_df <- data.frame(session_id <- integer(), theta <- double())
                 count = integer(number_of_bins)
 
                 for(j in 1:nrow(sorted_data)){    
-                    
+                    3
+                    bin <- ceiling(j/(nrow(sorted_data))/number_of_bins)
+                    #might have to change this 
+                    binned_theta[bin] <- (binned_theta*count[bin] + sorted_data[j,2])/(count[bin]+1) 
+                    binned_score[bin] <-(binned_score*count[bin] + sorted_data[j,1])/(count[bin]+1)  
+                    count[bin] <- count[bin] + 1 
                 }
 
+                store_count <- count 
+                
+                Binned_Score_Data <- vector()
+                Binned_Theta_Data <- vector()
+
+                for(bin in 1:number_of_bins){
+                    while(count[bin] > 0 ){
+                        Binned_Theta_Data <- c(Binned_Theta_Data,binned_theta[bin])
+                        Binned_Score_Data <- c(Binned_Score_Data,binned_score[bin])
+                        count[bin] = count[bin]-1
+                    }
+                }
+                x <-Binned_Theta_Data
+                y <- Binned_Score_Data
+                #On G script 210-217 is useless
+
+                Func <- function(x,discernment_param,diff_param){0.25 + (1-0.25)/(1+exp(-discernment_param*(x-diff_param)))}
+
+                tryCatch({
+                    fit <- nls(y~Func(x,discernment_param,diff_param),start=list(discernment_param=p1_p2_df[1,1], diff_param=p1_p2_df[1,2]),algorithm="port",lower=c(0,-4),upper=c(3,4),control = list(maxiter=1000, warnOnly=T))
+                    discernment <- summary(fit)$coefficients[1,1]
+                    difficulty <- summary(fit)$coefficients[2,1]
+
+                }, warning = function(w){
+                    #if func fails, goto default 
+                    discernment <- p1_p2_df[1,1]
+                    difficulty <- p1_p2_df[1,2]
+
+                    tryCatch({
+                        discernment_param_start=coef(summary(fit))["discernment_param","Estimate"]
+                        diff_param_start=coef(summary(fit))["diff_param","Estimate"]
+
+                        fit <- nls(y~Func(x,discernment_param,diff_param),start=list(discernment_param=discernment_param_start, diff_param=diff_param_start),algorithm="port",lower=c(0,-4),upper=c(3,4),control = list(maxiter=1000, warnOnly=T))
+
+                        discernment = summary(fit)$coefficients[1,1]
+                        difficulty = summary(fit)$coefficients[2,1]
+                    },warning = function(w){
+                        discernment <- p1_p2_df[1,1]
+                        difficulty <- p1_p2_df[1,2]
+
+                    },error = function(e){
+                        discernment <- p1_p2_df[1,1]
+                        difficulty <- p1_p2_df[1,2]
+                    }
+                
+                    )
+                },error = function(e){
+                    discernment <- p1_p2_df[1,1]
+                    difficulty <- p1_p2_df[1,2]
+                }
+                )
             }
         }
         
