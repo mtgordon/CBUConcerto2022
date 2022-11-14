@@ -1,4 +1,5 @@
 library("catR")
+library("vscDebugger")
 #This inital chunk is all hypothetical, and x_new are numbers calulated and given by Gordon
 # How such numbers were calculated is still news to me 
 #X-values are the ranks of the tests
@@ -17,19 +18,18 @@ new_data <- data.frame(c(x_new),c(y_new))
 
 plot(x_concrete,y_concrete, col = "orange")
 
-con_mod <- lm(y_concrete ~ x_concrete, con_data)
+
 new_mod <- lm(y_new ~ x_new, new_data)
 
 plot(x_concrete,y_concrete,col = "orange")
 points(x_new,y_new, col = "black")
+
+#trend lines for our values
 lines(x_concrete, predict(con_mod), col = "orange", lwd = 2)
 lines(x_new, predict(new_mod),col = "black", lwd = 2)
 
-con_coef <- coef(con_mod)
-new_coef <- coef(new_mod)
 
-con_intercept <- con_coef[1]
-con_slope <- con_coef[2]
+new_coef <- coef(new_mod)
 
 
 #Steps needed for this problem: 
@@ -92,37 +92,44 @@ for (i in 1:length(sessions[['session_id']])) {
 
 thetasTable <- cbind(sessions, theta)
 
-
-#This data set is a hard coding test set being used FOR NOW 
-#Gonna use thetas-table for the most part AND could potentially be passed via rescoring
-
 tempThetaValues <- c(-0.036072868,-0.023574167,-0.013157811,-0.002526671,0.19985009,
 0.289118281,0.3,0.374268269,0.385802921,0.426545856,0.457969122,0.544040112,
 0.564896521,0.581438811,0.584752892,0.626782541,0.629566929,0.666904352,0.72750015,
 0.751141976,0.789994934,0.8,0.905306618,1.197604967,1.5630329)
 
-thetaValues <- as.data.frame(matrix(nrow = length(tempThetaValues), ncol = 2))
-colnames(theta_values_df) <- c("Theta", "Rank%")
-thetaValues <- rbind('Theta',data.frame(tempThetaValues))
+thetaValues <- as.data.frame(matrix(nrow = length(tempThetaValues), ncol = 3))
+
+tempThetaValues <- sort(tempThetaValues, decreasing = FALSE)
+rankNum <- sort(rank(tempThetaValues),decreasing = TRUE)
 
 #will have to check if theta values are null
 # ranking all the thetas 
-max <- max(thetaValues$Theta)
-rank <- c()
-for(i in 1:length(thetaValues[['Theta']])){
-    temp <- (max - thetaValues[['Theta']])/max 
-    rank <- append(rank, temp)
-}
-thetaValues <- rbind('Rank%', thetaValues)
+max <- max(rankNum)
+rankPer <- c()
 
+for(i in rankNum){
+  temp <- (max - i)/max 
+  rankPer <- append(rankPer, temp)
+}
+thetaValues <- cbind(data.frame(tempThetaValues),data.frame(rankNum),data.frame(rankPer))
+colnames(thetaValues) <- c("Theta", "Rank", "RankPercent")
+
+con_mod <- lm(y_concrete ~ x_concrete, con_data)
+con_coef <- coef(con_mod)
+
+bOrg <- con_coef[1]
+mOrg <- con_coef[2]
+
+x <- thetaValues$Theta
 #I really hope that this function works
 peramFunction <- function(x,mOrg,bOrg){((x*m+b)/mOrg)-bOrg}
 
 tryCatch({
-  fit <- nls(y ~peramFunction(x,mOrg,bOrg))
+  fit <- nls(rankPer ~ peramFunction(x,mOrg,bOrg),start = c(m = mOrg,b = bOrg))
+  fitCoef <- coef(fit)
+  fitCoef
 }, warning = function(w){
   print(warning)
 },error = function(e){
   print(error)
 })
-
