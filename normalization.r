@@ -1,36 +1,8 @@
 library("catR")
-library("vscDebugger")
 #This inital chunk is all hypothetical, and x_new are numbers calulated and given by Gordon
 # How such numbers were calculated is still news to me 
 #X-values are the ranks of the tests
 #Y-values are the grades that the tests would get
-
-#given 
-
-x_concrete <- c(0,4,8,13,17,21,25,29,33,38,42,50,50,54,58,63,67,71,75,79,83,88,92,96)
-y_concrete <- c(41.2,62.4,64.8,66.6,72.1,72.3,74.1,77.3,77.6,79.8,81.3,82.3,82.3,82.8,84.2,84.3,86.8,87,88.5,89.5,91.8,93.5,94,94.3)
-
-x_new <- c(0,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96)
-y_new <- c(62.0,62.4,62.8,63.1,69.8,72.8,73.3,75.6,76.0,77.3,78.4,81.2,81.9,82.5,82.6,84.0,84.1,85.3,87.3,88.1,89.4,90.9,93.2,102.9,115.0)
-
-con_data <- data.frame(c(x_concrete), c(y_concrete))
-new_data <- data.frame(c(x_new),c(y_new))
-
-plot(x_concrete,y_concrete, col = "orange")
-
-
-new_mod <- lm(y_new ~ x_new, new_data)
-
-plot(x_concrete,y_concrete,col = "orange")
-points(x_new,y_new, col = "black")
-
-#trend lines for our values
-lines(x_concrete, predict(con_mod), col = "orange", lwd = 2)
-lines(x_new, predict(new_mod),col = "black", lwd = 2)
-
-
-new_coef <- coef(new_mod)
-
 
 #Steps needed for this problem: 
 # 1. Calculate the theta values tied to session_id 
@@ -56,10 +28,6 @@ sessions <- concerto.table.query("select distinct session_id from {{responseTabl
 
 #grab distinct list of response item ids
 itemIds <- concerto.table.query("select distinct item_id from {{responseTable}}")
-
-#setting initial p values
-# TODO: CHANGE THIS SINCE RESCORING HAS DONE THE LEGWORK ALREADY!
-
 
 #testing grabbing response table data
 responseData <- concerto.table.query("select item_id, score, session_id from {{responseTable}}")
@@ -92,10 +60,39 @@ for (i in 1:length(sessions[['session_id']])) {
 
 thetasTable <- cbind(sessions, theta)
 
+x_concrete <- c(4,8,13,17,21,25,29,33,38,42,50,50,54,58,63,67,71,75,79,83,88,92,96)
+y_concrete <- c(62.4,64.8,66.6,72.1,72.3,74.1,77.3,77.6,79.8,81.3,82.3,82.3,82.8,84.2,84.3,86.8,87,88.5,89.5,91.8,93.5,94,94.3)
+
+x_new <- c(0,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96)
+y_new <- c(62.0,62.4,62.8,63.1,69.8,72.8,73.3,75.6,76.0,77.3,78.4,81.2,81.9,82.5,82.6,84.0,84.1,85.3,87.3,88.1,89.4,90.9,93.2,102.9,115.0)
+
+con_data <- data.frame(c(x_concrete), c(y_concrete))
+new_data <- data.frame(c(x_new),c(y_new))
+
+con_mod <- lm(y_concrete ~ x_concrete, con_data)
+new_mod <- lm(y_new ~ x_new, new_data)
+
+plot(x_concrete,y_concrete,col = "orange")
+points(x_new,y_new, col = "black")
+
+#trend lines for our values
+lines(x_concrete, predict(con_mod), col = "orange", lwd = 2)
+lines(x_new, predict(new_mod),col = "black", lwd = 2)
+
+
+new_coef <- coef(new_mod)
+
 tempThetaValues <- c(-0.036072868,-0.023574167,-0.013157811,-0.002526671,0.19985009,
 0.289118281,0.3,0.374268269,0.385802921,0.426545856,0.457969122,0.544040112,
 0.564896521,0.581438811,0.584752892,0.626782541,0.629566929,0.666904352,0.72750015,
 0.751141976,0.789994934,0.8,0.905306618,1.197604967,1.5630329)
+
+#This is used to remove any outliers 
+quartiles <- quantile(tempThetaValues, probs = c(.25,.75), na.rm = FALSE)
+IQR <- IQR(tempThetaValues)
+lower <- quartiles[1] - 1.5 * IQR
+upper <- quartiles[2] + 1.5 * IQR
+tempThetaValues <- subset(tempThetaValues, tempThetaValues > lower & tempThetaValues < upper)
 
 thetaValues <- as.data.frame(matrix(nrow = length(tempThetaValues), ncol = 3))
 
@@ -114,7 +111,7 @@ for(i in rankNum){
 thetaValues <- cbind(data.frame(tempThetaValues),data.frame(rankNum),data.frame(rankPer))
 colnames(thetaValues) <- c("Theta", "Rank", "RankPercent")
 
-con_mod <- lm(y_concrete ~ x_concrete, con_data)
+
 con_coef <- coef(con_mod)
 
 bOrg <- con_coef[1]
@@ -122,12 +119,19 @@ mOrg <- con_coef[2]
 
 x <- thetaValues$Theta
 #I really hope that this function works
-peramFunction <- function(x,mOrg,bOrg){((x*m+b)/mOrg)-bOrg}
+peramFunction <- function(x,m,b,bOrg,mOrg){((x*m+b)/mOrg)-bOrg}
 
 tryCatch({
-  fit <- nls(rankPer ~ peramFunction(x,mOrg,bOrg),start = c(m = mOrg,b = bOrg))
+  fit <- nls(rankPer ~ peramFunction(x,m,b,bOrg,mOrg),
+  start = list(m = mOrg,b = 0),
+  algorithm = "port",
+  lower = 0,
+  upper = max(x)
+  )
+
   fitCoef <- coef(fit)
-  fitCoef
+  print(fitCoef)
+  
 }, warning = function(w){
   print(warning)
 },error = function(e){
