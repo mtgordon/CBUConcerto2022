@@ -14,7 +14,7 @@ library("catR")
 # 7. Grab the coef and intercept from new line 
 # 8. Compare the slope and intercept 
 # 9. get new p value from equation and place into table 
-
+#TODO: be more pickey about which tests we test via a if(check)
 #============================================================
 # Section 1: calculating thetas
 #============================================================
@@ -34,6 +34,7 @@ responseData <- concerto.table.query("select item_id, score, session_id from {{r
 
 #new list of thetas for each session id
 theta <- c()
+itemIds <-c()
 #loop through each session id and generate new theta
 for (i in 1:length(sessions[['session_id']])) {
   #grab score data for session id
@@ -56,6 +57,7 @@ for (i in 1:length(sessions[['session_id']])) {
   
   #add new theta to list of thetas
   theta <- c(theta, thetaEst(params,scores[['score']]))
+  
 }
 
 thetasTable <- cbind(sessions, theta)
@@ -119,21 +121,36 @@ mOrg <- con_coef[2]
 
 x <- thetaValues$Theta
 #I really hope that this function works
-peramFunction <- function(x,m,b,bOrg,mOrg){((x*m+b)/mOrg)-bOrg}
+peramFunction <- function(x,m,b){(((x*m+b)-bOrg)/mOrg)}
 
+newM <- 0
+newB <- 0
 tryCatch({
-  fit <- nls(rankPer ~ peramFunction(x,m,b,bOrg,mOrg),
+  fit <- nls(rankPer ~ peramFunction(x,m,b),
   start = list(m = mOrg,b = 0),
   algorithm = "port",
   lower = 0,
-  upper = max(x)
+  upper = 100
   )
-
+  summary(fit)
   fitCoef <- coef(fit)
+  newB <- fitCoef[1]
+  newM <- fitCoef[2]  
   print(fitCoef)
+
+  lines(fit,predict(fit),col = "blue")
   
 }, warning = function(w){
   print(warning)
 },error = function(e){
   print(error)
 })
+
+  #grabbing the questions which I need to alter the p-value
+for(i in 1: length(unique(responseData[["item_id"]]))){
+  
+  oldP <- concerto.table.query(paste0("select p2 from {{questionTable}} where id = ",unique(responseData[i,1])))
+  newP <- 1 + (oldP - ((90-newB)/newM)) * (newM/20)
+  #this is where I would update the p-value
+}
+
