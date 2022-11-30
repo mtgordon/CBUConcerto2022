@@ -81,7 +81,6 @@ points(x_new,y_new, col = "black")
 lines(x_concrete, predict(con_mod), col = "orange", lwd = 2)
 lines(x_new, predict(new_mod),col = "black", lwd = 2)
 
-
 new_coef <- coef(new_mod)
 
 tempThetaValues <- c(-0.036072868,-0.023574167,-0.013157811,-0.002526671,0.19985009,
@@ -127,15 +126,15 @@ newM <- 0
 newB <- 0
 tryCatch({
   fit <- nls(rankPer ~ peramFunction(x,m,b),
-  start = list(m = mOrg,b = 0),
+  start = list(m = mOrg,b = bOrg),
   algorithm = "port",
   lower = 0,
   upper = 100
   )
   summary(fit)
   fitCoef <- coef(fit)
-  newB <- fitCoef[1]
-  newM <- fitCoef[2]  
+  newB <- fitCoef[2]
+  newM <- fitCoef[1] * 100 
   print(fitCoef)
 
   lines(fit,predict(fit),col = "blue")
@@ -145,6 +144,16 @@ tryCatch({
 },error = function(e){
   print(error)
 })
+
+newTrend <- tempThetaValues * newM + newB
+newYTrend <- thetaValues$RankPercent*100
+points(newYTrend, newTrend, col = 'blue')
+
+calcData <-data.frame(c(newTrend),c(newYTrend))
+calMod <- lm(newYTrend ~ newTrend, calcData)
+
+
+lines(newTrend, predict(calMod),col = "blue", lwd = 2)
 
   #grabbing the questions which I need to alter the p-value
 for(i in 1: length(unique(responseData[["item_id"]]))){
