@@ -87,13 +87,14 @@ tempThetaValues <- c(-0.036072868,-0.023574167,-0.013157811,-0.002526671,0.19985
 0.289118281,0.3,0.374268269,0.385802921,0.426545856,0.457969122,0.544040112,
 0.564896521,0.581438811,0.584752892,0.626782541,0.629566929,0.666904352,0.72750015,
 0.751141976,0.789994934,0.8,0.905306618,1.197604967,1.5630329)
-
+print(tempThetaValues)
 #This is used to remove any outliers 
-quartiles <- quantile(tempThetaValues, probs = c(.25,.75), na.rm = FALSE)
+quartiles <- quantile(tempThetaValues, probs = c(.10,.90), na.rm = FALSE)
 IQR <- IQR(tempThetaValues)
 lower <- quartiles[1] - 1.5 * IQR
 upper <- quartiles[2] + 1.5 * IQR
 tempThetaValues <- subset(tempThetaValues, tempThetaValues > lower & tempThetaValues < upper)
+print(tempThetaValues)
 
 thetaValues <- as.data.frame(matrix(nrow = length(tempThetaValues), ncol = 3))
 
@@ -151,8 +152,6 @@ points(newYTrend, newTrend, col = 'blue')
 
 calcData <-data.frame(c(newTrend),c(newYTrend))
 calMod <- lm(newYTrend ~ newTrend, calcData)
-
-
 lines(newTrend, predict(calMod),col = "blue", lwd = 2)
 
   #grabbing the questions which I need to alter the p-value
