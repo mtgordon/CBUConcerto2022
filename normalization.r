@@ -15,10 +15,17 @@ library("catR")
 # 8. Compare the slope and intercept 
 # 9. get new p value from equation and place into table 
 #TODO: be more pickey about which tests we test via a if(check)
+
 #============================================================
 # Section 1: calculating thetas
 #============================================================
+sessionG1 <-c(847,916,917,918,920,921,922,923,924,925,926,927,928,929,930,931,932,933,934,935,936,937,938,939) 
+sessionG2 <-c(1101,1102,1103,1104,1105,1106,1107,1108,1109,1111,1112,1113,1114,1115,1116,1117,1118,1119,1120,1121,1122,1123,1124,1125) 
+#1359,1360,1361
+sessionG3 <-c(1144,1145,1159,1338,1339,1340,1341,1342,1343,1344,1345,1346,1347,1348,1349,1350,1351,1352,1353,1354,1355,1356,1357,1358)
 
+sessDF <- data.frame(sessionG1,sessionG2,sessionG3)
+print(sessDF)
 print('starting eval')
 gc()
 rm(list = ls())
@@ -74,7 +81,7 @@ new_data <- data.frame(c(x_new),c(y_new))
 con_mod <- lm(y_concrete ~ x_concrete, con_data)
 new_mod <- lm(y_new ~ x_new, new_data)
 
-plot(x_concrete,y_concrete,col = "orange")
+plot(x_concrete,y_concrete,col = "orange", xlab = "Rank", ylab = "Theta")
 points(x_new,y_new, col = "black")
 
 #trend lines for our values
@@ -138,7 +145,6 @@ tryCatch({
   newM <- fitCoef[1] * 100 
   print(fitCoef)
 
-  lines(fit,predict(fit),col = "blue")
   
 }, warning = function(w){
   print(warning)
@@ -146,14 +152,14 @@ tryCatch({
   print(error)
 })
 
-newTrend <- tempThetaValues * newM + newB
-newYTrend <- thetaValues$RankPercent*100
-points(newYTrend, newTrend, col = 'blue')
+newYTrend <- tempThetaValues * newM + newB
+newTrend <- round(thetaValues$RankPercent*100)
+points(newTrend, newYTrend, col = 'blue')
 
 calcData <-data.frame(c(newTrend),c(newYTrend))
-calMod <- lm(newYTrend ~ newTrend, calcData)
-lines(newTrend, predict(calMod),col = "blue", lwd = 2)
+calMod <- lm(newYTrend ~ newTrend)
 
+lines(newTrend, predict(calMod),col = "blue", lwd = 2)
   #grabbing the questions which I need to alter the p-value
 for(i in 1: length(unique(responseData[["item_id"]]))){
   
@@ -161,4 +167,3 @@ for(i in 1: length(unique(responseData[["item_id"]]))){
   newP <- 1 + (oldP - ((90-newB)/newM)) * (newM/20)
   #this is where I would update the p-value
 }
-
