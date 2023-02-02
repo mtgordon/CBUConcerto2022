@@ -48,10 +48,34 @@ DR. Gordon
 11. Troubleshooting
 
 # 1. Introduction
+## 1.1 Purpose
+## 1.2 Concerto Overview
 
 # 2. Setting up Concerto
+## 2.1	Step 1 – Navigating through Concerto Website
+## 2.2	Step 2 – Creating an Amazon AWS account
+## 2.3	Step 3- Navigating through Amazon AWS
+### 2.3.1	Creating an Amazon AWS account
+### 2.3.2	Creating a Key Pair
+### 2.3.3	Creating Amazon Stack
+### 2.3.4	Navigating to the Concerto URL
 
 # 3. Navigating Concerto
+## 3.1	Tests
+### 3.1.1 Test Attributes
+### 3.1.2 Creation
+### 3.1.3 Types of Tests
+## 3.2	Test Wizards
+### 3.2.1 Attributes of a Wizard
+### 3.2.2 Creating a Wizard
+## 3.3Templates
+## 3.4Data Tables
+### 3.4.1 Data Table Attributes
+### 3.4.2 Data Table Description
+### 3.4.3 Accessing the Database
+## 3.5Files
+## 3.6Users
+## 3.7Administration
 
 # 4. Ezekiel
 
@@ -68,3 +92,4 @@ DR. Gordon
 # 10. Terms and Definition
 
 # 11. Troubleshooting
+## Key Pair could not be Found
