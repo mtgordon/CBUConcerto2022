@@ -1,4 +1,5 @@
 # CBUConcerto2022
+<!-- This content will not appear in the rendered Markdown -->
 
 - [ ] paste all of the documentation to github
 - [ ] add images to the github
@@ -33,6 +34,8 @@ DR. Gordon
 
 
 [link to github readme syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+[Advanced syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting)
 
 # Table of Contents
 1. Introduction
