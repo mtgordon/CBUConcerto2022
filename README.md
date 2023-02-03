@@ -317,8 +317,42 @@ As you can see with this new test with the new wizard included, I can add my own
 ## 3.3Templates
 ## 3.4Data Tables
 ### 3.4.1 Data Table Attributes
+
+	Base Properties
+- Accessibility – Describes who can view and edit an object in the administration panel. This can be one of the following:
+  -	private – Can only be accessed by owner of the object, or super admins.
+  -	group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
+o	public – Can be accessed by anyone logged in to the administration panel.
+•	Archived – Archived objects will not be selectable from test wizard parameters.
+•	Description – Text describing the purpose of the object. This is visible as contextual information when using this object.
+•	Groups – Groups that this object belongs to. Used in conjunction with Accessibility.
+•	Name – Unique, human readable identifier, that will be used to reference the data table.
+•	Owner – Object owner. Used in conjunction with Accessibility.
+Data Table Structure
+List of the columns in your table. Each column is defined by the following properties:
+•	Name – Unique identifier that will be used to address a column.
+•	Type – Data type of a column. This can be one of the following:
+o	boolean
+o	bigint
+o	date
+o	datetime
+o	decimal
+o	float
+o	integer
+o	smallint
+o	string
+o	text
+All tables must have an id column with the type bigint. This value will be auto-generated when a new record (row) is inserted into the table. The column is added automatically on table creation and cannot be edited or removed.
+
 ### 3.4.2 Data Table Description
+Data tables are how you are going to store everything for future reference. That includes question data and what results you got from students taking tests. It is imperative that you keep good database design in min when creating such tables. All the information stored is within a MySQL database and there are several ways to access it. 
+
 ### 3.4.3 Accessing the Database
+There are two ways to access data tables within a test, using the “dataManipulation” node or using R code. 
+
+Using the dataManipulation node
+Within a flowchart, you can create a “dataManipulation” node that has several inputs and one output. The node will help you structure a MySQL query that will ping your data tables 
+ 
 ## 3.5Files
 ## 3.6Users
 ## 3.7Administration
