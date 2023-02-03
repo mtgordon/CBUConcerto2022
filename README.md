@@ -318,30 +318,32 @@ As you can see with this new test with the new wizard included, I can add my own
 ## 3.4Data Tables
 ### 3.4.1 Data Table Attributes
 
-	Base Properties
+Base Properties
 - Accessibility – Describes who can view and edit an object in the administration panel. This can be one of the following:
   -	private – Can only be accessed by owner of the object, or super admins.
   -	group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
-o	public – Can be accessed by anyone logged in to the administration panel.
-•	Archived – Archived objects will not be selectable from test wizard parameters.
-•	Description – Text describing the purpose of the object. This is visible as contextual information when using this object.
-•	Groups – Groups that this object belongs to. Used in conjunction with Accessibility.
-•	Name – Unique, human readable identifier, that will be used to reference the data table.
-•	Owner – Object owner. Used in conjunction with Accessibility.
+  -	public – Can be accessed by anyone logged in to the administration panel.
+-	Archived – Archived objects will not be selectable from test wizard parameters.
+-	Description – Text describing the purpose of the object. This is visible as contextual information when using this object.
+-	Groups – Groups that this object belongs to. Used in conjunction with Accessibility.
+-	Name – Unique, human readable identifier, that will be used to reference the data table.
+-	Owner – Object owner. Used in conjunction with Accessibility.
+
 Data Table Structure
 List of the columns in your table. Each column is defined by the following properties:
-•	Name – Unique identifier that will be used to address a column.
-•	Type – Data type of a column. This can be one of the following:
-o	boolean
-o	bigint
-o	date
-o	datetime
-o	decimal
-o	float
-o	integer
-o	smallint
-o	string
-o	text
+-	Name – Unique identifier that will be used to address a column.
+-	Type – Data type of a column. This can be one of the following:
+  -	boolean
+  -	bigint
+  -	date
+  -	datetime
+  -	decimal
+  -	float
+  -	integer
+  -	smallint
+  -	string
+  -	text
+
 All tables must have an id column with the type bigint. This value will be auto-generated when a new record (row) is inserted into the table. The column is added automatically on table creation and cannot be edited or removed.
 
 ### 3.4.2 Data Table Description
@@ -358,7 +360,64 @@ Within a flowchart, you can create a “dataManipulation” node that has severa
 ## 3.7Administration
 
 # 4. Ezekiel
+Z-SCORE
+When calling test results from a data table in concerto, the r code creates a dataframe from the information gathered in the code below we take the ‘value’ data from the ‘ShiftOne’ data table using query commands nested in r code. The type ‘tableAVG’ becomes a n x 1 array like structure where n is the number of rows and we only get 1 column.
+tableAVG = concerto.table.query('SELECT AVG(Value) from ShiftOne')
+Once this information is generated we then apply the formula below:
 
+itr = 1
+variance = 0
+for (integer in tabular_copy1[['Value']]) {
+  # subtract the avg from each value in the dataframe
+  #integer = integer - tableAVG
+  #dataframe[row, col]
+  tabular_copy1[itr,1] <- integer - tableAVG
+  # square the result
+  tabular_copy1[itr,1] <- tabular_copy1[itr,1] * tabular_copy1[itr,1]
+  variance = variance + tabular_copy1[itr,1]
+  itr = itr + 1
+}
+variance = variance / countSize[1,1]
+ to get the std deviation, just take the square root of variance
+stdDeviation = sqrt(variance)
+
+For programmers, notice that the data frame is not 0-indexed, you need to start checking values from the 1st location rather than the 0th. Next you should see that we square a precalculated average to subtract each integer then square the result. These collective results are then added up, then divided by the amount of values in total to get variance, to get standard deviation you must take the square root of the variance.
+
+The next segment of code reveals how to turn standard deviation into a z-score for normalizing test results.
+
+itr = 1
+print(tabular_copy2)
+for (integer in tabular_copy2[['Value']]) {
+	tabular_copy2[itr, 1] <- ((tabular_copy2[itr,1] - tableAVG) / stdDeviation)
+  	itr = itr + 1
+}
+
+For loops in R don’t come with a built-in function to auto increment all values in the header, some must be manually coded, notice the final line inside the loop. Each value inside the dataframe labeled ‘tabular_copy2’ is subtracted by the avg value then the result is divided by standard deviation.
+
+DISPLAYING THE INFORMATION
+
+Now that we have a dataframe that has the z-scores, we need to display this information to a web page for a professor or other educator to see.
+
+Before building a web page, you should realize that the Concerto system runs on blocked/segmented coding to run a ‘test’. Reference the image below, the node sequentially after ‘test start’ is the ‘eval’ block that contains the R code. The next block after is the ‘showPage’ where we write html to display a webpage. You should be able to notice that there are multiple thin lines connecting by red and blue spheres between ‘eval’ and ‘showPage’. These lines, or ports, are how we pass data from R code to html.
+ 
+If you refer back to the R code, shown below, you will notice that there is a string literal named ‘htmlStrTwo’. The string is formatted to look like html code. Inside the for loop, the program is concatenating data from the data frame to the string along with appropriate html table code. To pass ‘htmlStrTwo’ from the ‘eval’ node to the ‘showPage’ node the name on the output port must match the name of the string literal, the input port on ‘showPage’ doesn’t need to match the connected port in name, but it makes following code easier.
+
+htmlStrTwo = '<table style="border-style: double"> 
+	<tr> <th>Original</th> <th>Z score</th> </tr>'
+
+itr = 1
+for (integer in tabular_copy2[['Value']]) {
+	# print(integer * 10)
+ 	htmlStrTwo = paste(htmlStrTwo, '<tr> <td>', tabular[itr, 1],'</td> <td>', integer,'</td> </tr>') 
+  	itr = itr + 1
+}
+
+itr = 1
+	
+Once the data is connected to the ‘showPage’ node you can display it using a special syntax. Highlighted in the image below is information that we want to display. The input port, shown on the previous image, must match the name as the variable used in the html environment.
+ 
+The next image shows a webpage generated by concerto with the results for the test scores and z-scores formatted into a two column table.
+ 
 # 5. Jacob
 
 # 6. Simple CAT Test Creation
