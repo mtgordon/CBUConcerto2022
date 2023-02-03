@@ -274,21 +274,20 @@ These allow the user to define more complex methods, or extensions, for editing 
 -	Test variable – The input parameter in the source test of which this test wizard parameter is an extension.
 -	Label – Text label of wizard parameter that will be visible in the test wizard.
 -	Type – The type of editing method that this wizard parameter will perform on the source test variable. This can be one of the following
--  
-  -	Checkbox
-  -	Data table
-  -	Data table column
-  -	Data table column map
-  -	Drop-down list
-  -	Group
-  -	HTML
-  -	List
-  -	Multi-line text
-  -	R code
-  -	Single-line text
-  -	Test
-  -	Test wizard
-  -	View template
+	  -	Checkbox
+	  -	Data table
+	  -	Data table column
+	  -	Data table column map
+	  -	Drop-down list
+	  -	Group
+	  -	HTML
+	  -	List
+	  -	Multi-line text
+	  -	R code
+	  -	Single-line text
+	  -	Test
+	  -	Test wizard
+	  -	View template
 -	Hide condition – Used to hide parameter editor depending on values of other parameters. E.g.:
 values.showOptions == 0
 
@@ -333,16 +332,16 @@ Data Table Structure
 List of the columns in your table. Each column is defined by the following properties:
 -	Name – Unique identifier that will be used to address a column.
 -	Type – Data type of a column. This can be one of the following:
-  -	boolean
-  -	bigint
-  -	date
-  -	datetime
-  -	decimal
-  -	float
-  -	integer
-  -	smallint
-  -	string
-  -	text
+	  -	boolean
+	  -	bigint
+	  -	date
+	  -	datetime
+	  -	decimal
+	  -	float
+	  -	integer
+	  -	smallint
+	  -	string
+	  -	text
 
 All tables must have an id column with the type bigint. This value will be auto-generated when a new record (row) is inserted into the table. The column is added automatically on table creation and cannot be edited or removed.
 
@@ -365,32 +364,34 @@ When calling test results from a data table in concerto, the r code creates a da
 tableAVG = concerto.table.query('SELECT AVG(Value) from ShiftOne')
 Once this information is generated we then apply the formula below:
 
-itr = 1
-variance = 0
-for (integer in tabular_copy1[['Value']]) {
-  # subtract the avg from each value in the dataframe
-  #integer = integer - tableAVG
-  #dataframe[row, col]
-  tabular_copy1[itr,1] <- integer - tableAVG
-  # square the result
-  tabular_copy1[itr,1] <- tabular_copy1[itr,1] * tabular_copy1[itr,1]
-  variance = variance + tabular_copy1[itr,1]
-  itr = itr + 1
-}
-variance = variance / countSize[1,1]
- to get the std deviation, just take the square root of variance
-stdDeviation = sqrt(variance)
+<!-- putting a slash in front of the # will preserve the comment syntax of r-->
+
+	itr = 1
+	variance = 0
+	for (integer in tabular_copy1[['Value']]) {
+	  #subtract the avg from each value in the dataframe
+	  #integer = integer - tableAVG
+	  #dataframe[row, col]
+	  tabular_copy1[itr,1] <- integer - tableAVG
+	  # square the result
+	  tabular_copy1[itr,1] <- tabular_copy1[itr,1] * tabular_copy1[itr,1]
+	  variance = variance + tabular_copy1[itr,1]
+	  itr = itr + 1
+	}
+	variance = variance / countSize[1,1]
+	#to get the std deviation, just take the square root of variance
+	stdDeviation = sqrt(variance)
 
 For programmers, notice that the data frame is not 0-indexed, you need to start checking values from the 1st location rather than the 0th. Next you should see that we square a precalculated average to subtract each integer then square the result. These collective results are then added up, then divided by the amount of values in total to get variance, to get standard deviation you must take the square root of the variance.
 
 The next segment of code reveals how to turn standard deviation into a z-score for normalizing test results.
 
-itr = 1
-print(tabular_copy2)
-for (integer in tabular_copy2[['Value']]) {
-	tabular_copy2[itr, 1] <- ((tabular_copy2[itr,1] - tableAVG) / stdDeviation)
-  	itr = itr + 1
-}
+	itr = 1
+	print(tabular_copy2)
+	for (integer in tabular_copy2[['Value']]) {
+		tabular_copy2[itr, 1] <- ((tabular_copy2[itr,1] - tableAVG) / stdDeviation)
+		itr = itr + 1
+	}
 
 For loops in R don’t come with a built-in function to auto increment all values in the header, some must be manually coded, notice the final line inside the loop. Each value inside the dataframe labeled ‘tabular_copy2’ is subtracted by the avg value then the result is divided by standard deviation.
 
@@ -402,23 +403,65 @@ Before building a web page, you should realize that the Concerto system runs on 
  
 If you refer back to the R code, shown below, you will notice that there is a string literal named ‘htmlStrTwo’. The string is formatted to look like html code. Inside the for loop, the program is concatenating data from the data frame to the string along with appropriate html table code. To pass ‘htmlStrTwo’ from the ‘eval’ node to the ‘showPage’ node the name on the output port must match the name of the string literal, the input port on ‘showPage’ doesn’t need to match the connected port in name, but it makes following code easier.
 
-htmlStrTwo = '<table style="border-style: double"> 
-	<tr> <th>Original</th> <th>Z score</th> </tr>'
+	htmlStrTwo = '<table style="border-style: double"> 
+		<tr> <th>Original</th> <th>Z score</th> </tr>'
 
-itr = 1
-for (integer in tabular_copy2[['Value']]) {
-	# print(integer * 10)
- 	htmlStrTwo = paste(htmlStrTwo, '<tr> <td>', tabular[itr, 1],'</td> <td>', integer,'</td> </tr>') 
-  	itr = itr + 1
-}
+	itr = 1
+	for (integer in tabular_copy2[['Value']]) {
+		# print(integer * 10)
+		htmlStrTwo = paste(htmlStrTwo, '<tr> <td>', tabular[itr, 1],'</td> <td>', integer,'</td> </tr>') 
+		itr = itr + 1
+	}
 
-itr = 1
+	itr = 1
 	
 Once the data is connected to the ‘showPage’ node you can display it using a special syntax. Highlighted in the image below is information that we want to display. The input port, shown on the previous image, must match the name as the variable used in the html environment.
  
 The next image shows a webpage generated by concerto with the results for the test scores and z-scores formatted into a two column table.
  
 # 5. Jacob
+Introduction
+
+Concerto is an open source Computer Assisted Testing(CAT) platform. This platform allows admin users to generate various forms of online tests for students to take. CAT tests are only one type of test that Concerto is capable of generating. In order to use Concerto, admin users have to have access to an instance of Concerto, usually ran on an Amazon EC2. In order to execute, Concerto uses a mixture of html, CSS, and Php, as well as a language called R which is made for mathematical calculations, similar to MatLab.
+After logging into Concerto, there are a series of different tabs representing different features Concerto has. To summarize how Concerto works, there are two major sections of the interface that make up the bulk of Concerto’s functionality:
+-	Tests: are generated by admins and while the name would indicate that they are just the tests for students to take, they are basically just a series of “nodes” that concerto executes including nodes containing R scripts. This means that while their primary purpose is to generate a test for students to take, they are also able to be used for other purposes such as operating on data in the Concerto instance.
+-	Data Tables: are built in SQL data tables that can be accessed to generate questions for tests, as well as hold response data, user data, or any other data that can be held in an SQL table. These tables can be accessed either through a “Data Manipulation” node, or through a function call in an R script.
+	
+*More information about these topics as well as tips on how to start using Concerto can be found below.
+
+Data Tables
+
+When opening the Concerto console, there are a number of tabs that can be seen that allow admins to access different parts of Concerto’s functionality. One of these tabs is Data Tables
+ 
+Data Tables are built in SQL data tables that can be accessed to generate questions for tests, as well as hold response data, user data, or any other data that can be held in an SQL table. These tables can be accessed either through a “Data Manipulation” node, or through a function call in an R script. These tables can be exported or imported by concerto as csv files.
+
+Accessing Data Tables
+
+As stated previously, there are two ways for users to access these data tables in a test:
+
+Data Manipulation block
+
+The first way to access a data table is a data manipulation node. In Concerto, tests are made of a series of nodes of various types, one of which being the Data Manipulation block.
+ 
+A full explanation on how to use data manipulation blocks the normal way can be found [here](https://github.com/campsych/concerto-platform/wiki/Perform-Data-Table-Operations)
+
+If you want to use a data manipulation block but prefer or need to use SQL notation instead of the built in functionality, this is possible (and can also be done in an eval block in an R script which I personally prefer and you can read more about in the next section). To do this, you simply need to add an exposed input to the Data manipulation block by clicking the blue plus on the left side of the block highlighted in blue below:
+ 
+After clicking on the blue button a prompt will pop up allowing you to add a dynamic variable or add any exposed variables by checking their corresponding boxes. For now you can just check the box next to “queryString” like below:
+ 
+To add an exposed input, after checking all the exposed inputs you want click “Save” (if you want to add a dynamic input type in the name of the input in the input bar and click “Add”). After clicking “Save” a new input slot called queryString should be added to the node. In order to use SQL with your Data Manipulation Node, you need to add a default value to this input (technically you could also feed in a string from some other source as well if you needed to generate the string during runtime). To add a default value, click on the queryString input to bring up a prompt to edit the input. Here you should see an input bar to type in a default value like below:
+ 
+Here you can input a string in SQL to access the database. Now when this node is run in the flow of the test, it will run the SQL query you inputted (or whatever query was generated during runtime and inputted here if you went that route).
+
+Accessing Data In An Eval Block
+
+The Eval Block is one of the most important nodes in Concerto for the purpose of adding your own functionality. More about eval blocks can be read in the eval block section, but to summarize the eval block is a node that allows you to code a custom R script inside of it. The Eval node will run the R script when it is ran in the flow of the test. 
+
+If you want to access a data table within an R script, say to access some data from a data table and operate it, there is a very useful function built into Concerto that allows you do this. This function is called “concerto.table.query()”. This method takes in a string in SQL and runs that SQL request on Concerto’s internal database and return the result. It is important to note that the response of the query is returned in the form of a data frame which is a useful data type that functions similarly to a mini data table in run time (you can learn more about data frames in the section about R coding). You can then operate on the response table with the rest of the script. It is important to note that you can WRITE data to the database through this method as well (more on the intricacies of this method can be read in the section about R coding and eval blocks).
+
+Important Nodes and What They Do
+
+Eval Block / Data Manipulation Block / Log Block / Show Page Block
 
 # 6. Simple CAT Test Creation
 
@@ -431,4 +474,14 @@ The next image shows a webpage generated by concerto with the results for the te
 # 10. Terms and Definition
 
 # 11. Troubleshooting
+This section will address all the possible issues that you might come across during various processes of Concerto
+
 ## 11.1 Key Pair could not be Found
+This is the most common error that occurs when setting up the concerto platform. The reason as to why this occurs could be because of the following:
+-	AWS tabs are still open within the browser
+-	Did not use the link “Create Key Pair” that was stated in section 2.3.2
+
+Solutions to this problem goes as follows: 
+-	Close all Amazon AWS tabs in your browser and repeat the Step 3 process in its entirety 
+-	Follow the instructions stated in section 2.3.2 and use the proper link shown in this document
+
