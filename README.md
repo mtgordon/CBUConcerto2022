@@ -175,13 +175,145 @@ You have now successfully docked the concerto platform.
 If there were any errors found during the configuration of this process, you may click here to trouble shoot the problem
 
 # 3. Navigating Concerto
+This section will provide the necessary information to equip users to navigate the Concerto platform. The Concerto platform consists of 7 tabs, and this section will break down each individual tab and its functionality. 
+
 ## 3.1	Tests
 ### 3.1.1 Test Attributes
+Base Properties <!-- make this bold-->
+- Accessibility – Describes who can view and edit an object in the administration panel. This can be one of the following:
+  - private – Can only be accessed by owner of the object, or super admins.
+  - group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
+  - public – Can be accessed by anyone logged in to the administration panel.
+- Archived – Archived objects will not be selectable from test wizard parameters.
+- Description – Text describing the purpose of the object. This is visible as contextual information when using this object.
+- Groups – Groups that this object belongs to. Used in conjunction with Accessibility.
+- Name – Unique, human readable identifier, that will be used to reference the test in your test logic.
+- Owner – Object owner. Used in conjunction with Accessibility.
+- Type – Describes the type of logic used. This can be one of the following:
+  - code – the test logic is comprised of plain R code.
+  - wizard – the test logic is determined by a test wizard. Wizards can be used to override the default values of test parameters.
+  - flow – Test logic is scripted visually using the flow chart.
+- URL name – Unique string that will be used in URL to launch this test.
+- Visibility – Defines if and from where this test can be run. This can be one of the following:
+  - regular – Can be launched directly from URL.
+  - subtest – Can only be run from within another test, and cannot be launched directly from URL
+  - featured – Can be launched directly from URL and will also be listed in ‘available tests’ dropdown on the main domain where you have Concerto platform installed.
+Test Inputs <!-- make bold -->
+Input parameters can be passed to a Concerto test and used in test logic. The test input section is not available for wizard-based tests. Each input parameter consists of the following properties:
+- Name – Identifier that will be used to reference the input parameter.
+- Description – Text describing the purpose of the input parameter.
+- URL – If checked, it means that this input parameter value can be set through the URL (using a URL parameter with same name). If unchecked, it will not allow this parameter to be set through the URL. This only applies for for tests that can be launched directly through the URL and not to sub-tests.
+- Default value – Default string value to use for this parameter when no value has been specified. Defaults to NA.
+
+
 ### 3.1.2 Creation
+Tests are the bread and butter of Concerto and the implementation of such is easy. 
+Select the “Tests” tab and click on the “User made” tab. 
+
+Finally, click on “Add new” and a window will pop up showing different options:
+ 
+Click on “save” and navigate towards your newly created test, it should be now presented on the window. Click on ‘edit’ to start working on your test.
+
 ### 3.1.3 Types of Tests
+Code-based tests
+
+Code based tests are purely R and will execute when the test is called in other programs. 
+Input parameters can be accessed directly in test logic code.  If you have functions that are used frequently, you can implement them in code form and then call on them when coding in a flowchart-based test.
+
+Wizard-based tests
+
+A wizard can be viewed as the “front paneling” of a test and needs a source test to function. Wizards function as the GUI for your tests to make them more user friendly when implementing them in flowchart-based tests. Input/output parameters will be designated and can be organized with a wizard. This can be easily shown in the “tests” tab, just click on the “Starter content” tab to see what the original developers have created. 
+ 
+The test “_eval” is the source test while “eval” is the test wizard.
+ 
+As a sidenote, while you cannot edit the starter content, you can still view it; there are some great examples of how to manipulate Concerto and do some tricks that the original documentation does not cover. 
+
+Flowchart-based tests
+
+The most used test in Concerto and how you will develop your largest tests. As the name suggests, tests are created using block code in a flowchart style. Initially, you will only see two blocks: “test start" and “test end” with yellow square nodes. You can drag these nodes around and if you click and hold on the yellow square on the “test start” you can drag this to the other square node on “test end.”
+  
+This yellow line shows how the program will be executed, if you have ever used Lego Mindstorms before, then this should look familiar. This test will not do anything, if you click on the blue button “Run test” then you should see another tab open on your browser with text saying: “Test finished.” You can close this extra tab for now and we will add another node to our test. Right click anywhere on the test space and a new little window will open. 
+ 
+Click on “eval” and a new node will be placed on the testing. A window for eval will also pop-up and if you click on the three bars, you can implement your own R code into the flow chart. 
+ 
+Make sure to press save twice, once after typing out your code and secondly with the original eval window. You can then connect all three nodes together and you can run the code within the eval block. 
+
+As a sidenote: Print and the like in R code will not show up on the page. To have actual pages that have graphics use the “ShowPage” block. The only way to see data encapsulated by the print function is to click on “debug test” and press f12 to inspect what has been printed in the logs.
+ 
+There are several other features included with flowchart-based tests which will be explained further in “Simple CAT Test Creation.”  
+
 ## 3.2	Test Wizards
 ### 3.2.1 Attributes of a Wizard
+As previously written above, a wizard is a layer that can be placed on top of any test with input parameters defined, if you have a test that you want to implement in other tests however there are dynamic variables that you need to be passed through, then you can use a wizard to streamline that process. 
+
+As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code
+
+Base Properties <!-- make bold -->
+- Accessibility 
+  - private – Can only be accessed by owner of the object, or super admins.
+  -	group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
+  - public – Can be accessed by anyone logged in to the administration panel.
+-	Archived – Archived objects will not be selectable from test wizard parameters.
+-	Description – Text describing the purpose of the object. This is visible as contextual information when using this object.
+-	Groups – Groups that this object belongs to. Used in conjunction with Accessibility.
+-	Name – Unique, human readable identifier, that will be used to reference the test in your test logic.
+-	Test – Specifies the source test for which you are making a wizard.
+-	Owner – Object owner. Used in conjunction with Accessibility.
+
+Test Wizard Steps
+
+Used to group test wizard parameters into thematic sections. Each step is described by the following properties:
+- Title – Step title, that will be visible as a tab name for that step or group of steps in the wizard.
+-	Description – Description or instructions that will be visible to users while on a given step in the wizard.
+-	Order – Order index of the wizard step. These values are used to sort the steps in the test wizard.
+
+Test Wizard Parameters
+
+These allow the user to define more complex methods, or extensions, for editing the input parameter values of the source test. Each test wizard parameter is described by the following properties:
+-	Step – The test wizard step that this parameter relates to. Each test wizard parameter needs to be attached to a single step.
+-	Test variable – The input parameter in the source test of which this test wizard parameter is an extension.
+-	Label – Text label of wizard parameter that will be visible in the test wizard.
+-	Type – The type of editing method that this wizard parameter will perform on the source test variable. This can be one of the following
+-  
+  -	Checkbox
+  -	Data table
+  -	Data table column
+  -	Data table column map
+  -	Drop-down list
+  -	Group
+  -	HTML
+  -	List
+  -	Multi-line text
+  -	R code
+  -	Single-line text
+  -	Test
+  -	Test wizard
+  -	View template
+-	Hide condition – Used to hide parameter editor depending on values of other parameters. E.g.:
+values.showOptions == 0
+
+for hiding parameter when showOptions parameter (checkbox) is unchecked.
+-	Definition – More detailed definition of a wizard parameter. The value of this property depends on the Type of parameter you are working with e.g. default value, group fields, drop-down list options, etc.
+-	Passable through URL – Override for URL flag of input parameter.
+-	Order – Parameters will be sorted by this value inside their parent step.
+
 ### 3.2.2 Creating a Wizard
+The first step of creating a wizard is by implementing input parameters in a test. I have a little test made so that it will present a number, a string, and a character. I just modified the html in a “show page” node.
+ 
+I have input ports on the node itself with default values set.  
+ 
+Now, we want the test to have some “ports” open so that the wizard can recognize them and implement them in the GUI. This means we have to create some external inputs for our test. Scrolling upwards, you will find “Test input.” Click on “Add input parameter” and give a label to the input parameter.	
+Do this twice more and you will notice that on the “test start” node some new ports have shown up on it. Connect the newly made input parameters to their perspective variables and save the test. 
+Under the “Test wizards” tab, click on “Add new” and give your wizard a name. Under “test” find the test you have been working on. 
+ 
+Underneath “Test wizard steps” click on “add new step” and give the step a title. 
+ 
+Underneath this tab, go to “Test wizard params” and click “add new param.” Select your newly made wizard step, select one of the params we created earlier, and add a label. 
+   
+Do this for each of the parameters we made a while ago and save this wizard. Finally, we go back to the “tests” tab and create a new test. Make sure the test type is wizard and select the wizard you just created. Give this new “test” a name and you have made a simple wizard! 
+  
+As you can see with this new test with the new wizard included, I can add my own variables into the node and it will show my dynamic variables on the page. 
+
 ## 3.3Templates
 ## 3.4Data Tables
 ### 3.4.1 Data Table Attributes
