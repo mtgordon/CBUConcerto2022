@@ -13,6 +13,11 @@
 hehe <sub>This is a subscript text</sub>
 
 hehe <sup>This is a superscript text</sup>
+
+
+[link to github readme syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+[Advanced syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting)
 	
 </details>
 
@@ -35,11 +40,6 @@ Christopher Schilling / Ezekiel Ramirez / Jacob Eaton / Tyler Adcock
 
 EGR302-F Engineering Document and Design
 DR. Gordon
-
-
-[link to github readme syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-
-[Advanced syntax](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting)
 
 # Table of Contents
 
@@ -534,7 +534,7 @@ Eval Block / Data Manipulation Block / Log Block / Show Page Block
 	
 <details>
 	
-	This section will address all the possible issues that you might come across during various processes of Concerto
+This section will address all the possible issues that you might come across during various processes of Concerto
 
 ## 11.1 Key Pair could not be Found
 This is the most common error that occurs when setting up the concerto platform. The reason as to why this occurs could be because of the following:
