@@ -27,6 +27,7 @@ concerto.table.query("UPDATE emptyResults SET Theta = 0.55 where ID = 1")
 # gordan wants me to get theta values from each user's first attempt at a test
 # I am supposed to use this information to figure out what the pass/fail score
 # should be on a student's first attempt at a test
+#
 
 # practice a join command on two seperate tables!!! that may help in keeping all the data in one place
 
