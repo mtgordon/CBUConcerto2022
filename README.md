@@ -56,6 +56,7 @@ DR. Gordon
 9. Acronyms
 10. Terms and Definition
 11. Troubleshooting
+12. Video Instructions
 
 </details>
 
@@ -545,4 +546,63 @@ Solutions to this problem goes as follows:
 -	Close all Amazon AWS tabs in your browser and repeat the Step 3 process in its entirety 
 -	Follow the instructions stated in section 2.3.2 and use the proper link shown in this document
 	
+</details>
+
+# 12. Video Instructions
+<h1>Note</h1>
+<p>
+I tried to make these videos so they could be watched sequentially to learn Concerto from scratch, or watched individually to brush up on a specific topic. You can check out the details under each link to get a summary of what each video is about.
+</p>
+<a href = "https://youtu.be/AAD1CBUGl3k">Video 1: Introduction</a>
+<details>
+- What you can expect from videos
+<br/>
+- Logging in
+<br/>
+- Concerto console breakdown
+</details>
+
+<a href = "https://youtu.be/hriXpS2Zuho">Video 2: Data Tables in Concerto</a>
+<details>
+- Premade content
+<br/>
+- Making data tables
+</details>
+
+<a href = "https://youtu.be/c-r4UcqR76U">Video 3: Tests in Concerto</a>
+<details>
+- How concerto is used vs how we are using it
+<br/>
+- Making a test
+<br/>
+- Node basics
+<br/>
+- Show page block
+</details>
+
+<a href = "https://youtu.be/FB_YBXlYeaM">Video 4: Showpages in Concerto</a>
+<details>
+- Using custom html in show page
+<br/>
+- Getting user input
+<br/>
+- Passing user input to other blocks
+</details>
+
+<a href = "https://youtu.be/FxD05Sc6PkU">Video 5: Eval Blocks in Concerto</a>
+<details>
+- What is an Eval Block
+<br/>
+- How to run R scripts in Concerto
+<br/>
+- Accessing data tables with concerto
+</details>
+
+<a href = "https://youtu.be/tMY_sR5J2U0">Video 6: Test pt. 2</a>
+<details>
+- How to allow user to pick data tables
+<br/>
+- Iterating through data frame column
+<br/>
+- Paste function
 </details>
