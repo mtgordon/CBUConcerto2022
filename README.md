@@ -657,9 +657,12 @@ This can be very useful when combined with print() or cat() for creating easy-to
 	myVar:	5
 
 Notice how we use paste to create a string that displays a variables value inline with a contextualizing string. The ledgebility that this combination provides will greatly speed up your debugging. Note as well that we use cat here instead of print so that the tab character (`\t`) is handled correctly. Combining paste with cat also eliminates the need to specify an empty separator for the cat method, as we are only providing it with the completed string that paste returns.
-		 
+
+</details>
+	
 #### The typeof() method
 
+<details>
 Another very useful method for debugging eval blocks is the typeof() method. This method will return a string of the name of the input variables type. The most useful case for this is when handling the returns of database calls which can often return complex data types like lists of lists.
 
 	myVar <- 5
