@@ -28,11 +28,13 @@ Concerto Documentation
 Version: 1.0.0
 Revision: A
 
+##
+
 Period of Performance: 01/24/2020 – 04/25/2020
 
 Josh Freeman / Grimaldy Gunawan / Riley Verdier
 
-#
+##
 
 Period of Performance: 09/24/2022 – 04/25/2023
 
@@ -199,7 +201,8 @@ This section will provide the necessary information to equip users to navigate t
 
 ## 3.1	Tests
 ### 3.1.1 Test Attributes
-Base Properties <!-- make this bold-->
+
+**Base Properties**
 - Accessibility – Describes who can view and edit an object in the administration panel. This can be one of the following:
   - private – Can only be accessed by owner of the object, or super admins.
   - group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
@@ -218,7 +221,8 @@ Base Properties <!-- make this bold-->
   - regular – Can be launched directly from URL.
   - subtest – Can only be run from within another test, and cannot be launched directly from URL
   - featured – Can be launched directly from URL and will also be listed in ‘available tests’ dropdown on the main domain where you have Concerto platform installed.
-Test Inputs <!-- make bold -->
+  
+**Test Inputs**
 Input parameters can be passed to a Concerto test and used in test logic. The test input section is not available for wizard-based tests. Each input parameter consists of the following properties:
 - Name – Identifier that will be used to reference the input parameter.
 - Description – Text describing the purpose of the input parameter.
@@ -235,12 +239,13 @@ Finally, click on “Add new” and a window will pop up showing different optio
 Click on “save” and navigate towards your newly created test, it should be now presented on the window. Click on ‘edit’ to start working on your test.
 
 ### 3.1.3 Types of Tests
-Code-based tests
+
+#### Code-based tests
 
 Code based tests are purely R and will execute when the test is called in other programs. 
 Input parameters can be accessed directly in test logic code.  If you have functions that are used frequently, you can implement them in code form and then call on them when coding in a flowchart-based test.
 
-Wizard-based tests
+#### Wizard-based tests
 
 A wizard can be viewed as the “front paneling” of a test and needs a source test to function. Wizards function as the GUI for your tests to make them more user friendly when implementing them in flowchart-based tests. Input/output parameters will be designated and can be organized with a wizard. This can be easily shown in the “tests” tab, just click on the “Starter content” tab to see what the original developers have created. 
  
@@ -248,7 +253,7 @@ The test “_eval” is the source test while “eval” is the test wizard.
  
 As a sidenote, while you cannot edit the starter content, you can still view it; there are some great examples of how to manipulate Concerto and do some tricks that the original documentation does not cover. 
 
-Flowchart-based tests
+#### Flowchart-based tests
 
 The most used test in Concerto and how you will develop your largest tests. As the name suggests, tests are created using block code in a flowchart style. Initially, you will only see two blocks: “test start" and “test end” with yellow square nodes. You can drag these nodes around and if you click and hold on the yellow square on the “test start” you can drag this to the other square node on “test end.”
   
@@ -268,7 +273,7 @@ As previously written above, a wizard is a layer that can be placed on top of an
 
 As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code
 
-Base Properties <!-- make bold -->
+**Base Properties**
 - Accessibility 
   - private – Can only be accessed by owner of the object, or super admins.
   -	group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
@@ -280,14 +285,14 @@ Base Properties <!-- make bold -->
 -	Test – Specifies the source test for which you are making a wizard.
 -	Owner – Object owner. Used in conjunction with Accessibility.
 
-Test Wizard Steps
+**Test Wizard Steps**
 
 Used to group test wizard parameters into thematic sections. Each step is described by the following properties:
 - Title – Step title, that will be visible as a tab name for that step or group of steps in the wizard.
 -	Description – Description or instructions that will be visible to users while on a given step in the wizard.
 -	Order – Order index of the wizard step. These values are used to sort the steps in the test wizard.
 
-Test Wizard Parameters
+**Test Wizard Parameters**
 
 These allow the user to define more complex methods, or extensions, for editing the input parameter values of the source test. Each test wizard parameter is described by the following properties:
 -	Step – The test wizard step that this parameter relates to. Each test wizard parameter needs to be attached to a single step.
@@ -337,7 +342,7 @@ As you can see with this new test with the new wizard included, I can add my own
 ## 3.4Data Tables
 ### 3.4.1 Data Table Attributes
 
-Base Properties
+**Base Properties**
 - Accessibility – Describes who can view and edit an object in the administration panel. This can be one of the following:
   -	private – Can only be accessed by owner of the object, or super admins.
   -	group – Can be accessed by owner, users belonging to the same group as the object, or super admins.
@@ -348,7 +353,7 @@ Base Properties
 -	Name – Unique, human readable identifier, that will be used to reference the data table.
 -	Owner – Object owner. Used in conjunction with Accessibility.
 
-Data Table Structure
+**Data Table Structure**
 List of the columns in your table. Each column is defined by the following properties:
 -	Name – Unique identifier that will be used to address a column.
 -	Type – Data type of a column. This can be one of the following:
@@ -375,7 +380,9 @@ Using the dataManipulation node
 Within a flowchart, you can create a “dataManipulation” node that has several inputs and one output. The node will help you structure a MySQL query that will ping your data tables 
  
 ## 3.5Files
+
 ## 3.6Users
+
 ## 3.7Administration
 	
 </details>
@@ -384,7 +391,8 @@ Within a flowchart, you can create a “dataManipulation” node that has severa
 
 <details>
 	
-Z-SCORE
+## Z-SCORE
+
 When calling test results from a data table in concerto, the r code creates a dataframe from the information gathered in the code below we take the ‘value’ data from the ‘ShiftOne’ data table using query commands nested in r code. The type ‘tableAVG’ becomes a n x 1 array like structure where n is the number of rows and we only get 1 column.
 tableAVG = concerto.table.query('SELECT AVG(Value) from ShiftOne')
 Once this information is generated we then apply the formula below:
@@ -420,7 +428,7 @@ The next segment of code reveals how to turn standard deviation into a z-score f
 
 For loops in R don’t come with a built-in function to auto increment all values in the header, some must be manually coded, notice the final line inside the loop. Each value inside the dataframe labeled ‘tabular_copy2’ is subtracted by the avg value then the result is divided by standard deviation.
 
-DISPLAYING THE INFORMATION
+## DISPLAYING THE INFORMATION
 
 Now that we have a dataframe that has the z-scores, we need to display this information to a web page for a professor or other educator to see.
 
@@ -450,7 +458,7 @@ The next image shows a webpage generated by concerto with the results for the te
 	
 <details>
 	
-Introduction
+## Introduction
 
 Concerto is an open source Computer Assisted Testing(CAT) platform. This platform allows admin users to generate various forms of online tests for students to take. CAT tests are only one type of test that Concerto is capable of generating. In order to use Concerto, admin users have to have access to an instance of Concerto, usually ran on an Amazon EC2. In order to execute, Concerto uses a mixture of html, CSS, and Php, as well as a language called R which is made for mathematical calculations, similar to MatLab.
 After logging into Concerto, there are a series of different tabs representing different features Concerto has. To summarize how Concerto works, there are two major sections of the interface that make up the bulk of Concerto’s functionality:
@@ -459,17 +467,17 @@ After logging into Concerto, there are a series of different tabs representing d
 	
 *More information about these topics as well as tips on how to start using Concerto can be found below.
 
-Data Tables
+## Data Tables
 
 When opening the Concerto console, there are a number of tabs that can be seen that allow admins to access different parts of Concerto’s functionality. One of these tabs is Data Tables
  
 Data Tables are built in SQL data tables that can be accessed to generate questions for tests, as well as hold response data, user data, or any other data that can be held in an SQL table. These tables can be accessed either through a “Data Manipulation” node, or through a function call in an R script. These tables can be exported or imported by concerto as csv files.
 
-Accessing Data Tables
+### Accessing Data Tables
 
 As stated previously, there are two ways for users to access these data tables in a test:
 
-Data Manipulation block
+### Data Manipulation block
 
 The first way to access a data table is a data manipulation node. In Concerto, tests are made of a series of nodes of various types, one of which being the Data Manipulation block.
  
@@ -483,15 +491,19 @@ To add an exposed input, after checking all the exposed inputs you want click �
  
 Here you can input a string in SQL to access the database. Now when this node is run in the flow of the test, it will run the SQL query you inputted (or whatever query was generated during runtime and inputted here if you went that route).
 
-Accessing Data In An Eval Block
+### Accessing Data In An Eval Block
 
 The Eval Block is one of the most important nodes in Concerto for the purpose of adding your own functionality. More about eval blocks can be read in the eval block section, but to summarize the eval block is a node that allows you to code a custom R script inside of it. The Eval node will run the R script when it is ran in the flow of the test. 
 
 If you want to access a data table within an R script, say to access some data from a data table and operate it, there is a very useful function built into Concerto that allows you do this. This function is called “concerto.table.query()”. This method takes in a string in SQL and runs that SQL request on Concerto’s internal database and return the result. It is important to note that the response of the query is returned in the form of a data frame which is a useful data type that functions similarly to a mini data table in run time (you can learn more about data frames in the section about R coding). You can then operate on the response table with the rest of the script. It is important to note that you can WRITE data to the database through this method as well (more on the intricacies of this method can be read in the section about R coding and eval blocks).
 
-Important Nodes and What They Do
+## Important Nodes and What They Do
 
-Eval Block / Data Manipulation Block / Log Block / Show Page Block
+### Eval Block
+
+### Data Manipulation Block 
+### Log Block
+### Show Page Block
 		
 </details>
 
@@ -538,6 +550,7 @@ Eval Block / Data Manipulation Block / Log Block / Show Page Block
 This section will address all the possible issues that you might come across during various processes of Concerto
 
 ## 11.1 Key Pair could not be Found
+
 This is the most common error that occurs when setting up the concerto platform. The reason as to why this occurs could be because of the following:
 -	AWS tabs are still open within the browser
 -	Did not use the link “Create Key Pair” that was stated in section 2.3.2
@@ -545,10 +558,39 @@ This is the most common error that occurs when setting up the concerto platform.
 Solutions to this problem goes as follows: 
 -	Close all Amazon AWS tabs in your browser and repeat the Step 3 process in its entirety 
 -	Follow the instructions stated in section 2.3.2 and use the proper link shown in this document
+
+## Debugging Strategies
+
+### Eval Block Debugging
+
+The easiest way to debug R code in eval blocks is by using print statements.
+There are three very helpful R methods for printing to the console, which can allow you to check the values of variables at any point in the eval block and make sure things are functioning the way they should: print(), cat(), and paste().
+
+All of these debugging methods utilize the built-in console of your browser. To access the console, run a test in 'Debug Test' mode, navigate to the test's tab, press F12 __or__ right click the page and select 'Inspect Element' or 'Inspect' from the popup menu. In the window that appears, select the 'Console' tab.
+
+#### print()
+
+<details>
+The print method very simply prints the input string to the console.
+
+	print("Hello World!")
+
+This method does not handle escape sequences like `\n` for the newline character. These characters can be useful when debugging for making it obvious where your information is printed out in the console, so it is recommended you use a combination of the next two methods when making complex debug statements.
+</details>
+
+#### cat()
+
+<details>
+The cat method takes objects and prints their values to the console.
+
+__**TODO: Finish**__
+
+</details>
 	
 </details>
 
 # 12. Video Instructions
+<details>
 <h1>Note</h1>
 <p>
 I tried to make these videos so they could be watched sequentially to learn Concerto from scratch, or watched individually to brush up on a specific topic. You can check out the details under each link to get a summary of what each video is about.
@@ -605,4 +647,5 @@ I tried to make these videos so they could be watched sequentially to learn Conc
 - Iterating through data frame column
 <br/>
 - Paste function
+</details>
 </details>
