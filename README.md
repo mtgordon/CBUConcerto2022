@@ -568,23 +568,69 @@ There are three very helpful R methods for printing to the console, which can al
 
 All of these debugging methods utilize the built-in console of your browser. To access the console, run a test in 'Debug Test' mode, navigate to the test's tab, press F12 __or__ right click the page and select 'Inspect Element' or 'Inspect' from the popup menu. In the window that appears, select the 'Console' tab.
 
-#### print()
+#### The print() method
 
 <details>
-The print method very simply prints the input string to the console.
+The print method very simply prints the input to the console. It can only take one input.
 
-	print("Hello World!")
+	print("Hello World!\nHello again!")
 
+**Console output:**
+
+	[1] "Hello World!\nHello again!"
+	
 This method does not handle escape sequences like `\n` for the newline character. These characters can be useful when debugging for making it obvious where your information is printed out in the console, so it is recommended you use a combination of the next two methods when making complex debug statements.
 </details>
 
-#### cat()
+#### The cat() method
 
 <details>
-The cat method takes objects and prints their values to the console.
+The cat method functions similarly to the print method: it takes inputs them to the console. It can take multiple inputs.
 
-__**TODO: Finish**__
+	cat("Hello World!\nHello again!")
+	
+**Console output:**
 
+	Hello World!
+	Hello again!
+
+There primary reason cat is useful is because it properly handles escape sequence characters like newline (`\n`) and tab (`\t`).
+
+__Here is a multi-input example:__
+	
+	cat("Hello World!", "\n", "Hello again!")
+
+**Console output:**
+	
+	Hello World!
+	 Hello again!
+	
+Notice that there is a space indent that we didn't expect. That is because cat also takes in a separator parameter `sep`. This parameter is the string that will be added on in between every given input. In this example, we don't want the separator at all, so we can simply set it to an empty string like this: `cat("Hello World!", "\n", "Hello again!", sep="")`.
+	
+There is more nuance to this method, but isn't particularly relevant to our use-case here, so the other parameters won't be discussed. For an in depth explanation see the official documentation [here](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cat).
+</details>
+	
+#### The paste() method
+
+<details>
+The paste method combines all of its parameters into one string.
+	
+	paste("Hello", " ", "World", "!")
+	
+**Resulting string:** `Hello World!`
+	
+This can be very useful when combined with print() or cat() for creating easy-to-read variable readouts.
+	
+**For example:**
+	
+	myVar <- 5
+	cat(paste("myVar:\t", myVar))
+		 
+**Console output:**
+	
+	myVar:	5
+
+Notice how we use paste to create a string that displays a variables value inline with a contextualizing string. The ledgebility that this combination provides will greatly speed up your debugging. Note as well that we use cat here instead of print so that the tab character (`\t`) is handled correctly. Combining paste with cat also eliminates the need to specify an empty separator for the cat method, as we are only providing it with the completed string that paste returns.
 </details>
 	
 </details>
