@@ -579,7 +579,33 @@ The print method very simply prints the input to the console. It can only take o
 
 	[1] "Hello World!\nHello again!"
 	
-This method does not handle escape sequences like `\n` for the newline character. These characters can be useful when debugging for making it obvious where your information is printed out in the console, so it is recommended you use a combination of the next two methods when making complex debug statements.
+This method does not handle escape sequences like `\n` for the newline character. These characters can be useful when debugging for making it obvious where your information is printed out in the console, so you may want to use the next two options if this will be helpful.
+	
+The print function does have its upsides: it can handle complex datatypes very easily. For example, say we want to print out a data table that we have stored in a variable, print can do this very cleanly.
+	
+	myTable <- concerto.table.query('select user_id, test_id from EGR242S21sessions')
+	# This returns two columns: a list of two lists
+	
+	print(myTable)
+		   
+**Console output:**
+		   
+		user_id test_id
+	1        32      85
+	2        25      85
+	3        17      85
+	4        20      85
+	5         4      85
+	6        19      85
+	7        22      85
+	8         3      85
+	9        24      85
+	10       37      85
+	11       37      85
+	12       24      85
+		   
+As you can see, print nicely formats the complex list of lists datatype that the table was stored as. This is quite superior to how the upcoming cat method handles complex datatypes like lists.
+	
 </details>
 
 #### The cat() method
@@ -614,23 +640,42 @@ There is more nuance to this method, but isn't particularly relevant to our use-
 
 <details>
 The paste method combines all of its parameters into one string.
-	
+
 	paste("Hello", " ", "World", "!")
-	
+
 **Resulting string:** `Hello World!`
-	
+
 This can be very useful when combined with print() or cat() for creating easy-to-read variable readouts.
-	
+
 **For example:**
-	
+
 	myVar <- 5
 	cat(paste("myVar:\t", myVar))
-		 
+ 
 **Console output:**
-	
+
 	myVar:	5
 
 Notice how we use paste to create a string that displays a variables value inline with a contextualizing string. The ledgebility that this combination provides will greatly speed up your debugging. Note as well that we use cat here instead of print so that the tab character (`\t`) is handled correctly. Combining paste with cat also eliminates the need to specify an empty separator for the cat method, as we are only providing it with the completed string that paste returns.
+		 
+#### The typeof() method
+
+Another very useful method for debugging eval blocks is the typeof() method. This method will return a string of the name of the input variables type. The most useful case for this is when handling the returns of database calls which can often return complex data types like lists of lists.
+
+	myVar <- 5
+	cat("myVar: ", typeof(myVar))
+	
+	myTable <- concerto.table.query('select user_id, test_id from EGR242S21sessions')
+	# This returns two columns: a list of two lists
+	
+	cat("myTable: ", typeof(myTable))
+	cat("myTable[1]: ", typeof(myTable[1]))
+
+**Console output:**
+
+	myVar: double
+	myTable: list
+
 </details>
 	
 </details>
