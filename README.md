@@ -98,9 +98,9 @@ Once on the website we want to go click on the documentation tab in the top righ
 
 ![Circled Documentation Header](./doc-assets/images/concerto-documentation-header.png)
 
-This will open a web page. Click on the “SEE DOCUMENTATION” button in the middle of the screen on this page.
+This will open a web page. Click on the “SEE ALL DOCUMENTATION” button in the middle of the screen on this page.
 
-**TODO: IMAGE HERE**
+![Circled See All Documentation](./doc-assets/images/concerto-see-all-documentation.png)
 
 ## 3.2 - AWS Account
 
@@ -109,13 +109,13 @@ If you already have an Amazon AWS account fill free to skip to [ section 3.3.2](
 The Concerto Documentation Web Page should now pop up.
 Click on the “QuickStart Guide” that is under the heading “Running Concerto”.
 
-**TODO: IMAGE HERE**
+![Circled Quickstart Guide](./doc-assets/images/concerto-docs-quick-start-guide.png)
 
 This link will direct you to a page where Concerto will show the user how to set up Concerto on your machine. We __DO NOT__ want to use their guide. Instead, please follow this documentation to minimize the likelihood of running into errors.
 
 Scroll down to the “Installation on Amazon EC2”. Under this subheading click on the “Amazon AWS account” link.
 
-**TODO: IMAGE HERE**
+![Circled Amazon AWS Account](./doc-assets/images/concerto-docs-amazon-aws-account.png)
 
 ## 3.3 - AWS Setup
 
@@ -127,13 +127,13 @@ In order for Concerto to be docked into your machine we must first create an Ama
 
 This section will help you set up an AWS account.
 
-On the Amazon AWS account page ([see 3.2](#32---aws-account)), we want to click on “Sign in to Console” in the upper right-hand corner.
+On the Amazon AWS account page ([see 3.2](#32---aws-account)), we want to click on "Sign In" in the upper right-hand corner.
 
-**TODO: IMAGE HERE**
+![Circled AWS Sign In](./doc-assets/images/aws-sign-in.png)
 
 Click on “Create a new AWS account”.
 
-**TODO: IMAGE HERE**
+![Circled Create a New AWS Account](./doc-assets/images/create-a-new-aws-account.png)
 
 Fill out all the necessary fields that are required to create an account once finished you can click the “Continue” button.
 
