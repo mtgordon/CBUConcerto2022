@@ -60,10 +60,10 @@ _Josh Freeman / Grimaldy Gunawan / Riley Verdier_
 
 # 1. General Context
 	
-## 1.1 Purpose
+## 1.1 - Purpose
 This document is created to illustrate the uses and capabilities of the Concerto platform. In here users of the Concerto platform will find all the necessary tools and instructions to create proper Computerized Adaptive Tests (CAT). 
 
-## 1.2 Concerto Overview
+## 1.2 - Concerto Overview
 The University of Cambridge Psychometrics Centre believes that online adaptive testing should be available to everyone. 
 That is why we’ve built Concerto: a powerful and user-friendly platform that empowers experts and beginners alike to make better tests, without needing to write a single line of code. 
 There are no set-up costs, no hidden license fees and no limitations. 
@@ -505,21 +505,17 @@ Solutions to this problem goes as follows:
 ### 7.2.1 - Eval Block Debugging
 
 The easiest way to debug R code in eval blocks is by using print statements.
-There are three very helpful R methods for printing to the console, which can allow you to check the values of variables at any point in the eval block and make sure things are functioning the way they should: print(), cat(), and paste().
+There are three very helpful R methods for printing to the console, which can allow you to check the values of variables at any point in the eval block and make sure things are functioning the way they should: `print()`, `cat()`, and `paste()`.
 
 All of these debugging methods utilize the built-in console of your browser. To access the console, run a test in 'Debug Test' mode, navigate to the test's tab, press F12 __or__ right click the page and select 'Inspect Element' or 'Inspect' from the popup menu. In the window that appears, select the 'Console' tab.
 
-#### The print() method
-
-#####
-
-**Overview**
+### The print() method
 
 The print method very simply prints the input to the console. It can only take one input.
 
     print("Hello World!\nHello again!")
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     [1] "Hello World!\nHello again!"
 
@@ -530,7 +526,7 @@ The print function does have its upsides: it can handle complex datatypes very e
     # This returns three columns: a list of three lists
     print(myTable)
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     user_id test_id
     1 32 85
@@ -546,70 +542,60 @@ The print function does have its upsides: it can handle complex datatypes very e
     11 37 85
     12 24 85
 
-As you can see, print nicely formats the complex list of lists datatype that the table was stored as. This is quite superior to how the upcoming cat method handles complex datatypes like lists.
+As you can see, `print()` nicely formats the complex list of lists that the table was stored as. This is quite superior to how the upcoming cat method handles complex datatypes like lists.
 
-#### The cat() method
+### The cat() method
 
-#####
-
-**Overview**
-
-The cat method functions similarly to the print method: it takes inputs them to the console. It can take multiple inputs.
+The `cat()` method functions similarly to the print method: it takes inputs them to the console. It can take multiple inputs.
 
     cat("Hello World!\nHello again!")
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     Hello World!
     Hello again!
 
 There primary reason cat is useful is because it properly handles escape sequence characters like newline (`\n`) and tab (`\t`).
 
-**Here is a multi-input example:**
+Here is a multi-input example:
 
     cat("Hello World!", "\n", "Hello again!")
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     Hello World!
     Hello again!
 
-Notice that there is a space indent that we didn't expect. That is because cat also takes in a separator parameter `sep`. This parameter is the string that will be added on in between every given input. In this example, we don't want the separator at all, so we can simply set it to an empty string like this: `cat("Hello World!", "\n", "Hello again!", sep="")`.
+Notice that there is a space indent that we didn't expect. That is because cat also takes in a separator parameter, `sep`. This parameter is the string that will be added on in between every given input. In this example, we don't want the separator at all, so we can simply set it to an empty string like this:
 
-There is more nuance to this method, but isn't particularly relevant to our use-case here, so the other parameters won't be discussed. For an in depth explanation see the official documentation [here](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cat).
+    cat("Hello World!", "\n", "Hello again!", sep="")
+
+There is more nuance to this method, but isn't particularly relevant to our use-case here, so the other parameters won't be discussed. For an in depth explanation see the documentation [here](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cat).
 	
-#### The paste() method
-
-#####
-
-**Overview**
+### The paste() method
 
 The paste method combines all of its parameters into one string.
 
     paste("Hello", " ", "World", "!")
 
-**Resulting string:** `Hello World!`
+Resulting string: `Hello World!`
 
 This can be very useful when combined with print() or cat() for creating easy-to-read variable readouts.
 
-**For example:**
+For example:
 
     myVar <- 5
     cat(paste("myVar:\t", myVar))
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     myVar:	5
 
 Notice how we use paste to create a string that displays a variables value inline with a contextualizing string. The ledgebility that this combination provides will greatly speed up your debugging. Note as well that we use cat here instead of print so that the tab character (`\t`) is handled correctly. Combining paste with cat also eliminates the need to specify an empty separator for the cat method, as we are only providing it with the completed string that paste returns.
 	
-#### The typeof() method
+### The typeof() method
 
-#####
-
-**Overview**
-
-Another very useful method for debugging eval blocks is the typeof() method. This method will return a string of the name of the input variables type. The most useful case for this is when handling the returns of database calls which can often return complex data types like lists of lists.
+Another very useful method for debugging eval blocks is the `typeof()` method. This method will return a string of the name of the input variables type. The most useful case for this is when handling the returns of database calls which can often return complex data types like lists of lists.
 
     myVar <- 5
     cat("myVar: ", typeof(myVar))
@@ -620,7 +606,7 @@ Another very useful method for debugging eval blocks is the typeof() method. Thi
     cat("myTable: ", typeof(myTable))
     cat("myTable[1]: ", typeof(myTable[1]))
 
-**Console output:**
+<sub> _Console output:_ </sub>
 
     myVar: double
     myTable: list
@@ -631,36 +617,36 @@ Another very useful method for debugging eval blocks is the typeof() method. Thi
 
 I tried to make these videos so they could be watched sequentially to learn Concerto from scratch, or watched individually to brush up on a specific topic. You can check out the details under each link to get a summary of what each video is about.
 
-#### 8.1 [Introduction](https://youtu.be/AAD1CBUGl3k)
+#### 8.1 - [Introduction](https://youtu.be/AAD1CBUGl3k)
 
 - Logging in
 - Concerto console breakdown
 
-#### 8.2 [Data Tables in Concerto](https://youtu.be/hriXpS2Zuho)
+#### 8.2 - [Data Tables in Concerto](https://youtu.be/hriXpS2Zuho)
 
 - Premade content
 - Making data tables
 
-#### 8.3 [Tests in Concerto](https://youtu.be/c-r4UcqR76U)
+#### 8.3 - [Tests in Concerto](https://youtu.be/c-r4UcqR76U)
 
 - How concerto is used versus how we are using it
 - Making a test
 - Node basics
 - Show page block
 
-#### 8.4 [Showpages in Concerto](https://youtu.be/FB_YBXlYeaM)
+#### 8.4 - [Showpages in Concerto](https://youtu.be/FB_YBXlYeaM)
 
 - Using custom html in show page
 - Getting user input
 - Passing user input to other blocks
 
-#### 8.5 [Eval Blocks in Concerto](https://youtu.be/FxD05Sc6PkU)
+#### 8.5 - [Eval Blocks in Concerto](https://youtu.be/FxD05Sc6PkU)
 
 - What is an Eval Block
 - How to run R scripts in Concerto
 - Accessing data tables with concerto
 
-#### 8.6 [Database Operations in Concerto](https://youtu.be/tMY_sR5J2U0)
+#### 8.6 - [Database Operations in Concerto](https://youtu.be/tMY_sR5J2U0)
 
 - How to allow user to pick data tables
 - Iterating through data frame column
