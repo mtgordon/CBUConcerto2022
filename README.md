@@ -27,7 +27,7 @@ hehe <sup>This is a superscript text</sup>
 
 ###
 
-Period of Performance: 09/24/2022 – 04/25/2023
+Period of Performance: 09/24/2022 – 04/25/2023 
 _Tyler Adcock / Jacob Eaton / Ezekiel Ramirez / Christopher Schilling_
 
 ###
