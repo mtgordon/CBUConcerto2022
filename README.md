@@ -342,22 +342,35 @@ These allow the user to define more complex methods, or extensions, for editing 
 ### 4.2.2 - Creating a Wizard
 
 The first step of creating a wizard is by implementing input parameters in a test. I have a little test made so that it will present a number, a string, and a character. I just modified the html in a “show page” node.
+
 ![An example of HTML chars](./doc-assets/images/wizardDocu1.png)
+
 I have input ports on the node itself with default values set.
+
 ![Showing Node](./doc-assets/images/wizardDocu2.png)
 ![param test](./doc-assets/images/wizardDocu3.png)
 ![Showing Results](./doc-assets/images/wizardDocu4.png)
+
 Now, we want the test to have some “ports” open so that the wizard can recognize them and implement them in the GUI. This means we have to create some external inputs for our test. Scrolling upwards, you will find “Test input.” Click on “Add input parameter” and give a label to the input parameter.
 Do this twice more and you will notice that on the “test start” node some new ports have shown up on it. Connect the newly made input parameters to their perspective variables and save the test.
 Under the “Test wizards” tab, click on “Add new” and give your wizard a name. Under *test* find the test you have been working on.
+
 ![Wizard Setup](./doc-assets/images/wizardDocu5.png)
+
 Underneath “Test wizard steps” click on “add new step” and give the step a title.
+
 ![New Step](./doc-assets/images/wizardDocu6.png)
+
 Underneath this tab, go to “Test wizard params” and click “add new param.” Select your newly made wizard step, select one of the params we created earlier, and add a label.
+
 ![Params Added](./doc-assets/images/wizardDocu7.png)
+
 Do this for each of the parameters we made a while ago and save this wizard. Finally, we go back to the “tests” tab and create a new test. Make sure the test type is wizard and select the wizard you just created. Give this new “test” a name and you have made a simple wizard!
+
 ![Wiz Made!](./doc-assets/images/wizardDocu8.png)
+
 As you can see with this new test with the new wizard included, I can add my own variables into the node and it will show my dynamic variables on the page.
+
 ![Ex](./doc-assets/images/wizardDocu9.png)
 ![Ex](./doc-assets/images/wizardDocu10.png)
 ![Ex](./doc-assets/images/wizardDocu11.png)
