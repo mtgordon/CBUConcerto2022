@@ -528,7 +528,13 @@ After checking out to the appropriate branch, once more return to the '...' drop
 
 #### **Pushing Changes**
 
-The easiest way to push changes back to the GitHub repository is again on the 'Source Control' panel. Save any documents you want to push changes on, then input a commit message into the text box and press `ctrl+enter`.
+The easiest way to push changes back to the GitHub repository is again on the 'Source Control' panel.
+
+Save any documents you want to push changes on, then input a commit message into the text box and press `ctrl+enter`.
+
+If there is a popup, select 'Save All and Commit'.
+
+After the commit has been sent, click the 'Sync Changes' button to finalize the updates.
 
 # 7. Troubleshooting
 	
