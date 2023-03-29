@@ -257,12 +257,12 @@ Click on “save” and navigate towards your newly created test, it should be n
 
 ### 4.1.3 - Types of Tests
 
-#### Code-based tests
+#### **Code-based tests**
 
 Code based tests are purely R and will execute when the test is called in other programs.
 Input parameters can be accessed directly in test logic code. If you have functions that are used frequently, you can implement them in code form and then call on them when coding in a flowchart-based test.
 
-#### Wizard-based tests
+#### **Wizard-based tests**
 
 A wizard can be viewed as the “front paneling” of a test and needs a source test to function. Wizards function as the GUI for your tests to make them more user friendly when implementing them in flowchart-based tests. Input/output parameters will be designated and can be organized with a wizard. This can be easily shown in the “tests” tab, just click on the “Starter content” tab to see what the original developers have created.
 
@@ -270,7 +270,7 @@ The test “\_eval” is the source test while “eval” is the test wizard.
 
 As a sidenote, while you cannot edit the starter content, you can still view it; there are some great examples of how to manipulate Concerto and do some tricks that the original documentation does not cover.
 
-#### Flowchart-based tests
+#### **Flowchart-based tests**
 
 The most used test in Concerto and how you will develop your largest tests. As the name suggests, tests are created using block code in a flowchart style. Initially, you will only see two blocks: “test start" and “test end” with yellow square nodes. You can drag these nodes around and if you click and hold on the yellow square on the “test start” you can drag this to the other square node on “test end.”
 
@@ -286,13 +286,13 @@ There are several other features included with flowchart-based tests which will 
 
 ## 4.2 - Test Wizards
 
+A wizard is a layer that can be placed on top of any test with input parameters defined, if you have a test that you want to implement in other tests however there are dynamic variables that you need to be passed through, then you can use a wizard to streamline that process.
+
+As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code.
+
 ### 4.2.1 - Attributes of a Wizard
 
-As previously written above, a wizard is a layer that can be placed on top of any test with input parameters defined, if you have a test that you want to implement in other tests however there are dynamic variables that you need to be passed through, then you can use a wizard to streamline that process.
-
-As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code
-
-#### Base Properties
+#### **Base Properties**
 
 - **Accessibility**
   - private – Can only be accessed by owner of the object, or super admins.
@@ -305,7 +305,7 @@ As a sidenote: When placing these created tests in future flowcharts, call on th
 - **Test** – Specifies the source test for which you are making a wizard.
 - **Owner** – Object owner. Used in conjunction with Accessibility.
 
-#### Test Wizard Steps
+#### **Test Wizard Steps**
 
 Used to group test wizard parameters into thematic sections. Each step is described by the following properties:
 
@@ -313,7 +313,7 @@ Used to group test wizard parameters into thematic sections. Each step is descri
 - **Description** – Description or instructions that will be visible to users while on a given step in the wizard.
 - **Order** – Order index of the wizard step. These values are used to sort the steps in the test wizard.
 
-#### Test Wizard Parameters
+#### **Test Wizard Parameters**
 
 These allow the user to define more complex methods, or extensions, for editing the input parameter values of the source test. Each test wizard parameter is described by the following properties:
 
@@ -398,12 +398,31 @@ All tables must have an id column with the type bigint. This value will be auto-
 
 Data tables are how you are going to store everything for future reference. That includes question data and what results you got from students taking tests. It is imperative that you keep good database design in min when creating such tables. All the information stored is within a MySQL database and there are several ways to access it.
 
+Data Tables are built in SQL data tables that can be accessed to generate questions for tests, as well as hold response data, user data, or any other data that can be held in an SQL table. These tables can be accessed either through a “Data Manipulation” node, or through a function call in an R script. These tables can be exported or imported by concerto as csv files.
+
 ### 4.4.3 - Accessing the Database
 
 There are two ways to access data tables within a test, using the “dataManipulation” node or using R code.
 
-Using the dataManipulation node
-Within a flowchart, you can create a “dataManipulation” node that has several inputs and one output. The node will help you structure a MySQL query that will ping your data tables
+#### **Data Manipulation block**
+
+The first way to access a data table is a data manipulation node. In Concerto, tests are made of a series of nodes of various types, one of which being the Data Manipulation block.
+
+A full explanation on how to use data manipulation blocks the normal way can be found [here](https://github.com/campsych/concerto-platform/wiki/Perform-Data-Table-Operations)
+
+If you want to use a data manipulation block but prefer or need to use SQL notation instead of the built in functionality, this is possible (and can also be done in an eval block in an R script which I personally prefer and you can read more about in the next section). To do this, you simply need to add an exposed input to the Data manipulation block by clicking the blue plus on the left side of the block highlighted in blue below:
+
+After clicking on the blue button a prompt will pop up allowing you to add a dynamic variable or add any exposed variables by checking their corresponding boxes. For now you can just check the box next to “queryString” like below:
+
+To add an exposed input, after checking all the exposed inputs you want click “Save” (if you want to add a dynamic input type in the name of the input in the input bar and click “Add”). After clicking “Save” a new input slot called queryString should be added to the node. In order to use SQL with your Data Manipulation Node, you need to add a default value to this input (technically you could also feed in a string from some other source as well if you needed to generate the string during runtime). To add a default value, click on the queryString input to bring up a prompt to edit the input. Here you should see an input bar to type in a default value like below:
+
+Here you can input a string in SQL to access the database. Now when this node is run in the flow of the test, it will run the SQL query you inputted (or whatever query was generated during runtime and inputted here if you went that route).
+
+#### **Accessing Data In An Eval Block**
+
+The Eval Block is one of the most important nodes in Concerto for the purpose of adding your own functionality. More about eval blocks can be read in the eval block section, but to summarize the eval block is a node that allows you to code a custom R script inside of it. The Eval node will run the R script when it is ran in the flow of the test.
+
+If you want to access a data table within an R script, say to access some data from a data table and operate it, there is a very useful function built into Concerto that allows you do this. This function is called “concerto.table.query()”. This method takes in a string in SQL and runs that SQL request on Concerto’s internal database and return the result. It is important to note that the response of the query is returned in the form of a data frame which is a useful data type that functions similarly to a mini data table in run time (you can learn more about data frames in the section about R coding). You can then operate on the response table with the rest of the script. It is important to note that you can WRITE data to the database through this method as well (more on the intricacies of this method can be read in the section about R coding and eval blocks).
 
 # 5. Advanced R Script Explanations
 
@@ -494,13 +513,18 @@ View comprehensive R Documentation on:
 - [RDocumentation.org](https://www.rdocumentation.org/)
 - [DevDocs.io](https://devdocs.io/r/)
 
-## 6.3 - Easy Markdown Editing
+## 6.3 - Markdown Syntax
+
+View comprehensive Markdown documentation here:
+- [Markdown Syntax](https://www.markdownguide.org/basic-syntax/)
+
+## 6.4 - Easy Markdown Editing
 
 This section will explain how to set up  VSCode for efficiently editing markdown documents. This is particularly useful for editing the README.md file in GitHub and adding new documentation. 
 
 Any images you want to add to a markdown document can be referred to with relative file paths. This is another reason why editing the README.md locally is nice, as adding new images is really easy (all of the relative file paths are the same locally as they are in the GitHub).
 
-### 6.3.1 - Installing Extensions
+### 6.4.1 - Installing Extensions
 
 The first extension, "Markdown" by starkwang, will provide nice syntax highlighting when editing markdown documents. Search for it in the VSCode extensions library and install it.
 
@@ -508,7 +532,7 @@ Another extension on the VSCode market can create a live-updating preview of a M
 
 Once both of these extensions are installed, you should be able to open a preview of the current markdown document in a side pane by pressing `ctrl+k` followed by `v`. Alternatively you can open the 'View' tab, select 'Command Palette', and type 'Open Preview to the Side'.
 
-### 6.3.2 - Linking GitHub to VSCode
+### 6.4.2 - Linking GitHub to VSCode
 
 Now that you can easily edit markdown documents, let's link your GitHub account to VSCode so you can pull the repository and edit the README.md locally.
 
@@ -536,7 +560,7 @@ If there is a popup, select 'Save All and Commit'.
 
 After the commit has been sent, click the 'Sync Changes' button to finalize the updates.
 
-### 6.3.3 - Adding Images
+### 6.4.3 - Adding Images
 
 After installing the Markdown extensions, linking your GitHub, and pulling the repository, it is really easy to add new images to a markdown document.
 
@@ -564,9 +588,9 @@ Solutions to this problem goes as follows:
 
 # 8. Debugging
 
-## 8.2 - Debugging Strategies
+## 8.1 - Debugging Strategies
 
-### 8.2.1 - Eval Block Debugging
+### 8.1.1 - Eval Block Debugging
 
 The easiest way to debug R code in eval blocks is by using print statements.
 There are three very helpful R methods for printing to the console, which can allow you to check the values of variables at any point in the eval block and make sure things are functioning the way they should: `print()`, `cat()`, and `paste()`.
