@@ -496,15 +496,15 @@ View comprehensive R Documentation on:
 
 ## 6.3 - Easy Markdown Editing
 
-This section will explain how to set up  VS code for efficiently editing markdown documents. This is particularly useful for editing the README.md file in GitHub and adding new documentation. 
+This section will explain how to set up  VSCode for efficiently editing markdown documents. This is particularly useful for editing the README.md file in GitHub and adding new documentation. 
 
 Any images you want to add to a markdown document can be referred to with relative file paths. This is another reason why editing the README.md locally is nice, as adding new images is really easy (all of the relative file paths are the same locally as they are in the GitHub).
 
 ### 6.3.1 - Installing Extensions
 
-The first extension, "Markdown" by starkwang, will provide nice syntax highlighting when editing markdown documents. Search for it in the VS code extensions library and install it.
+The first extension, "Markdown" by starkwang, will provide nice syntax highlighting when editing markdown documents. Search for it in the VSCode extensions library and install it.
 
-Another extension on the VS code market can create a live-updating preview of a Markdown document. This extension is called "Markdown All in One" by Yu Zhang. Search for it in the VS code extension library and install it.
+Another extension on the VSCode market can create a live-updating preview of a Markdown document. This extension is called "Markdown All in One" by Yu Zhang. Search for it in the VSCode extension library and install it.
 
 Once both of these extensions are installed, you should be able to open a preview of the current markdown document in a side pane by pressing `ctrl+k` followed by `v`. Alternatively you can open the 'View' tab, select 'Command Palette', and type 'Open Preview to the Side'.
 
@@ -530,11 +530,21 @@ After checking out to the appropriate branch, once more return to the '...' drop
 
 The easiest way to push changes back to the GitHub repository is again on the 'Source Control' panel.
 
-Save any documents you want to push changes on, then input a commit message into the text box and press `ctrl+enter`.
+Save any documents you want to push changes on, you should see the changes you are pushing listed in the panel. Input a commit message into the text box and press `ctrl+enter`.
 
 If there is a popup, select 'Save All and Commit'.
 
 After the commit has been sent, click the 'Sync Changes' button to finalize the updates.
+
+### 6.3.3 - Adding Images
+
+After installing the Markdown extensions, linking your GitHub, and pulling the repository, it is really easy to add new images to a markdown document.
+
+Images are added with the following syntax: `![ERROR_TEXT](IMAGE_PATH)`
+
+For example, an image of Concerto's logo from the 'myImages' folder might look something like this: `![Concerto](./myImages/concerto_logo.png)`
+
+The `ERROR_TEXT` is what text is displayed if the image file is not found or is unable to be shown. The `IMAGE_PATH` is a relative path to the images source file. When using the previously mentioned markdown extensions in VSCode, the available file paths should be offered by autosuggest.
 
 # 7. Troubleshooting
 	
