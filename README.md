@@ -285,13 +285,13 @@ There are several other features included with flowchart-based tests which will 
 
 ## 4.2 - Test Wizards
 
-A wizard is a layer that can be placed on top of any test with input parameters defined, if you have a test that you want to implement in other tests however there are dynamic variables that you need to be passed through, then you can use a wizard to streamline that process.
-
-As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code.
-
 ### 4.2.1 - Attributes of a Wizard
 
-#### **Base Properties**
+As previously written above, a wizard is a layer that can be placed on top of any test with input parameters defined, if you have a test that you want to implement in other tests however there are dynamic variables that you need to be passed through, then you can use a wizard to streamline that process.
+
+As a sidenote: When placing these created tests in future flowcharts, call on the wizard not on the source code
+
+#### Base Properties
 
 - **Accessibility**
   - private – Can only be accessed by owner of the object, or super admins.
@@ -304,7 +304,7 @@ As a sidenote: When placing these created tests in future flowcharts, call on th
 - **Test** – Specifies the source test for which you are making a wizard.
 - **Owner** – Object owner. Used in conjunction with Accessibility.
 
-#### **Test Wizard Steps**
+#### Test Wizard Steps
 
 Used to group test wizard parameters into thematic sections. Each step is described by the following properties:
 
@@ -312,7 +312,7 @@ Used to group test wizard parameters into thematic sections. Each step is descri
 - **Description** – Description or instructions that will be visible to users while on a given step in the wizard.
 - **Order** – Order index of the wizard step. These values are used to sort the steps in the test wizard.
 
-#### **Test Wizard Parameters**
+#### Test Wizard Parameters
 
 These allow the user to define more complex methods, or extensions, for editing the input parameter values of the source test. Each test wizard parameter is described by the following properties:
 
@@ -343,25 +343,82 @@ These allow the user to define more complex methods, or extensions, for editing 
 
 The first step of creating a wizard is by implementing input parameters in a test. I have a little test made so that it will present a number, a string, and a character. I just modified the html in a “show page” node.
 
+![An example of HTML chars](./doc-assets/images/wizardDocu1.png)
+
 I have input ports on the node itself with default values set.
+
+![Showing Node](./doc-assets/images/wizardDocu2.png)
+![param test](./doc-assets/images/wizardDocu3.png)
+![Showing Results](./doc-assets/images/wizardDocu4.png)
 
 Now, we want the test to have some “ports” open so that the wizard can recognize them and implement them in the GUI. This means we have to create some external inputs for our test. Scrolling upwards, you will find “Test input.” Click on “Add input parameter” and give a label to the input parameter.
 Do this twice more and you will notice that on the “test start” node some new ports have shown up on it. Connect the newly made input parameters to their perspective variables and save the test.
-Under the “Test wizards” tab, click on “Add new” and give your wizard a name. Under “test” find the test you have been working on.
+Under the “Test wizards” tab, click on “Add new” and give your wizard a name. Under *test* find the test you have been working on.
+
+![Wizard Setup](./doc-assets/images/wizardDocu5.png)
 
 Underneath “Test wizard steps” click on “add new step” and give the step a title.
 
+![New Step](./doc-assets/images/wizardDocu6.png)
+
 Underneath this tab, go to “Test wizard params” and click “add new param.” Select your newly made wizard step, select one of the params we created earlier, and add a label.
+
+![Params Added](./doc-assets/images/wizardDocu7.png)
 
 Do this for each of the parameters we made a while ago and save this wizard. Finally, we go back to the “tests” tab and create a new test. Make sure the test type is wizard and select the wizard you just created. Give this new “test” a name and you have made a simple wizard!
 
+![Wiz Made!](./doc-assets/images/wizardDocu8.png)
+
 As you can see with this new test with the new wizard included, I can add my own variables into the node and it will show my dynamic variables on the page.
 
-## 4.3 - Templates
+![Ex](./doc-assets/images/wizardDocu9.png)
+![Ex](./doc-assets/images/wizardDocu10.png)
+![Ex](./doc-assets/images/wizardDocu11.png)
 
-## 4.4 - Data Tables
+### 4.2.2 - Extra Info on Wizards
+Sometimes, you want to interract with the base nodes with wizard inputs. For example, I want to use my wizard to input a variable into userBankTable in the "authorizeUser" node. 
 
-### 4.4.1 - Data Table Attributes
+![Ex](./doc-assets/images/wizardDocu12.png)
+
+The problem is, if you were to run this code, it would give you a Json parsing error. This means we will have to use some of the special parameters that you can pass into a wizard. This is usually the case when you are interracting with the original Concerto code. 
+
+First step is to look at what "authorizeUser" is doing with userBankTable; so we find the orginal test. It will be underneath "Starter Content" with the lable "_authorizeUser." If we click edit, we can see the code underneath and the first method gives us everything we need. 
+
+![Ex](./doc-assets/images/wizardDocu13.png)
+
+The userBankTable is being interpreted as a Json object and is most likely a columnMap. If we were to open our wizard and see what data types we can choose there is a columnMap type.
+
+![Ex](./doc-assets/images/wizardDocu14.png)
+
+If we click on the three bars next to "Definition" we can open a new tab that regulates what the user can input. 
+
+![Ex](./doc-assets/images/wizardDocu15.png)
+
+We can see an empty table that we can throw different parameters into.  
+
+![Ex](./doc-assets/images/wizardDocu16.png)
+
+We can add new columns to this object and it will eventually show up in our wizard. The main problem is that we need to find out what variables userBankTable takes so that it is properly mapped out for Json parsing. 
+
+Let's take a visit to our orginal code and study UserDataTable. We can see some mapping of values that we can copy to our wizard.
+
+![Ex](./doc-assets/images/wizardDocu17.png)
+
+We can see these values being mapped to one another, Test => test, Id => id, etc. This is the mapping we need so if we were to copy these mappings to our object in our wizard, we would be golden.
+
+Going back to the wizard, we add these mappings EXCLUDING "test", test is baked into the object and we do not have to worry about it. 
+
+![Ex](./doc-assets/images/wizardDocu18.png)
+
+This object will sucessfully be passed into authorizeUser and not cause an error. 
+
+The Data Table Column Map is the most used object in original Concerto code and just looking over the base flow code and the interractable GUI can give enough information so map out the variables.
+
+There are a few other odd data types that are used but the same process still applies. 
+
+## 4.3 - Data Tables
+
+### 4.3.1 - Data Table Attributes
 
 #### Base Properties
 
@@ -393,13 +450,13 @@ List of the columns in your table. Each column is defined by the following prope
 
 All tables must have an id column with the type bigint. This value will be auto-generated when a new record (row) is inserted into the table. The column is added automatically on table creation and cannot be edited or removed.
 
-### 4.4.2 - Data Table Description
+### 4.3.2 - Data Table Description
 
 Data tables are how you are going to store everything for future reference. That includes question data and what results you got from students taking tests. It is imperative that you keep good database design in min when creating such tables. All the information stored is within a MySQL database and there are several ways to access it.
 
 Data Tables are built in SQL data tables that can be accessed to generate questions for tests, as well as hold response data, user data, or any other data that can be held in an SQL table. These tables can be accessed either through a “Data Manipulation” node, or through a function call in an R script. These tables can be exported or imported by concerto as csv files.
 
-### 4.4.3 - Accessing the Database
+### 4.3.3 - Accessing the Database
 
 There are two ways to access data tables within a test, using the “dataManipulation” node or using R code.
 
