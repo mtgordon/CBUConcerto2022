@@ -163,7 +163,7 @@ Once this is filled out click the "Sign in" button to sign in into Amazon AWS.
 
 Once Signed in, you will be redirect to the AWS console page.
 
-Before we do anything, make sure you are setting up the key pair in the proper region by selecting the dropdown in the top right next to your username. The dropdown may take a second to load.
+Before you do anything, make sure you are setting up the key pair in the proper region by selecting the dropdown in the top right next to your username. The dropdown may take a second to load. *The link from the Concerto documentation will automatically set your region to London and you probably do not want this.*
 
 ![Region Selection Key Pair](doc-assets/images/aws-region-selection-key-pair.png)
 
@@ -195,7 +195,7 @@ Once on the documentation page Scroll down to the "Installation on Amazon EC2" h
 
 This link will direct you to the Amazon Create Stack Page. Here we will now create a stack to dock the Concerto platform on the cloud.
 
-Before we do anything, make sure you are setting up the stack in the same region you set up your key pair. Select the dropdown in the top right next to your username to switch regions if necessary. The dropdown might take a second to load.
+Before you do anything, make sure you are setting up the stack in the same region you set up your key pair. *The link from the Concerto documentation will automatically set your region to London and you probably do not want this.* Select the dropdown in the top right next to your username to switch regions if necessary. The dropdown might take a second to load.
 
 ![Region Selection](doc-assets/images/aws-region-selection-stack.png)
 
