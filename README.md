@@ -225,6 +225,12 @@ You will be brought to the Review Stacks page and click "Submit" in the bottom r
 
 ![Stack Review](doc-assets/images/stack-review.png)
 
+If you run into any errors that look similar to this:
+
+![Domain Name Error](./doc-assets/images/domain-name-error.png)
+
+Then you might be set in the London region. Non-US regions have more requires parameters than US regions. If this is the case, [go back](#332---creating-a-key-pair) to when you set up the key pair and try again, this time making sure you are in a US region.
+
 ### 3.3.4 - Navigating to the Concerto URL
 
 After clicking "Next" you will be brought to your Amazon "Stacks" page.
