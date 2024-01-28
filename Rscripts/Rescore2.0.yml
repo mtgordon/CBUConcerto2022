@@ -1,0 +1,7439 @@
+version: 5.0.26
+collection:
+  -
+    class_name: Test
+    id: 1
+    name: _showPage
+    accessibility: 2
+    archived: '0'
+    visibility: 2
+    type: 0
+    code: |
+      getTemplateParams = function() {
+        if(!is.list(templateParams)) {
+          templateParams = list()
+        }
+      
+        templateParams$logo = logo
+        templateParams$title = title
+        templateParams$content = content
+        templateParams$buttonLabel = buttonLabel
+        templateParams$footer = footer
+      
+        for(.name in .dynamicInputs) {
+          templateParams[[.name]] = get(.name)
+        }
+        return(templateParams)
+      }
+      
+      numericTimeLimit = as.numeric(timeLimit)
+      if(!is.list(cookies)) {
+        cookies = list()
+      }
+      if(!is.list(bgWorkers)) {
+        bgWorkers = list()
+      }
+      response = concerto5:::concerto.template.show(
+        template=template, 
+        html=if(!is.null(html) && !is.na(html) && html != "") {html} else {""},
+        params=getTemplateParams(), 
+        timeLimit=if(!is.na(numericTimeLimit)) { numericTimeLimit } else { 0 },
+        cookies=cookies,
+        bgWorkers=bgWorkers,
+        protectedFilesAccess=protectedFilesAccess == 1,
+        sessionFilesAccess=sessionFilesAccess == 1
+      )
+      
+      cookies = concerto$lastResponse$cookies
+      
+      for(.name in .dynamicReturns) {
+        if(!is.null(response[[.name]])) {
+          assign(.name, response[[.name]])
+        }
+      }
+      if(response$buttonPressed %in% .dynamicBranches) {
+        .branch = response$buttonPressed
+      } else {
+        .branch = "out"
+      }
+      
+    description: ''
+    variables:
+      -
+        class_name: TestVariable
+        id: 1
+        name: .branch
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 2
+        name: bgWorkers
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 3
+        name: buttonLabel
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: Next
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 4
+        name: content
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 5
+        name: cookies
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 6
+        name: cookies
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 7
+        name: footer
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 8
+        name: html
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 9
+        name: logo
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 10
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 11
+        name: protectedFilesAccess
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 12
+        name: response
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 13
+        name: sessionFilesAccess
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 14
+        name: template
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 15
+        name: templateParams
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 16
+        name: timeLimit
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 1
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 17
+        name: title
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 1
+        parentVariable: null
+    sourceWizard: null
+    sourceWizardTest: null
+    nodes: {  }
+    nodesConnections: {  }
+    baseTemplate: null
+    tags: ''
+    groups: ''
+    protected: '0'
+    starterContent: true
+    hash: 0b31ddff7c779b94cf040b0bd4ae4a77f53c6bf2
+  -
+    class_name: TestWizard
+    id: 1
+    name: showPage
+    description: ''
+    accessibility: 2
+    archived: '0'
+    steps:
+      -
+        class_name: TestWizardStep
+        id: 1
+        title: Template
+        description: ''
+        orderNum: 0
+        colsNum: 0
+        wizard: 1
+        params:
+          -
+            class_name: TestWizardParam
+            id: 1
+            label: 'Button Label'
+            description: 'Leave blank to disable button.'
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: Next
+            testVariable: 3
+            name: buttonLabel
+            wizardStep: 1
+            stepTitle: Template
+            order: 13
+            wizard: 1
+            definition:
+              defvalue: Next
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 2
+            label: Content
+            description: ''
+            hideCondition: ''
+            type: 2
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 4
+            name: content
+            wizardStep: 1
+            stepTitle: Template
+            order: 12
+            wizard: 1
+            definition:
+              defvalue: ''
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 3
+            label: Footer
+            description: ''
+            hideCondition: ''
+            type: 2
+            passableThroughUrl: '0'
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            testVariable: 7
+            name: footer
+            wizardStep: 1
+            stepTitle: Template
+            order: 14
+            wizard: 1
+            definition:
+              defvalue: |
+                Created with 
+                <a href="http://www.concertoplatform.com" target="_blank">
+                	Concerto Platform
+                </a>
+                
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 4
+            label: HTML
+            description: 'Directly input HTML to be shown by this node.'
+            hideCondition: ''
+            type: 2
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 8
+            name: html
+            wizardStep: 1
+            stepTitle: Template
+            order: 0
+            wizard: 1
+            definition:
+              defvalue: ''
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 5
+            label: 'Logo URL'
+            description: ''
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 9
+            name: logo
+            wizardStep: 1
+            stepTitle: Template
+            order: 11
+            wizard: 1
+            definition:
+              defvalue: ''
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 6
+            label: 'Protected Files Access'
+            description: ''
+            hideCondition: ''
+            type: 4
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 11
+            name: protectedFilesAccess
+            wizardStep: 1
+            stepTitle: Template
+            order: 20
+            wizard: 1
+            definition:
+              defvalue: '0'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 7
+            label: 'Session Files Access'
+            description: ''
+            hideCondition: ''
+            type: 4
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 13
+            name: sessionFilesAccess
+            wizardStep: 1
+            stepTitle: Template
+            order: 30
+            wizard: 1
+            definition:
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 8
+            label: 'Time limit'
+            description: 'Specify how long the selected Page or HTML should be shown for, in seconds. 0&nbsp;= page does not expire.'
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 16
+            name: timeLimit
+            wizardStep: 1
+            stepTitle: Template
+            order: 2
+            wizard: 1
+            definition:
+              defvalue: '0'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 9
+            label: Title
+            description: ''
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 17
+            name: title
+            wizardStep: 1
+            stepTitle: Template
+            order: 10
+            wizard: 1
+            definition:
+              defvalue: ''
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 10
+            label: 'View Template'
+            description: 'Select which template should be shown by this node.&nbsp;This field will be ignored if HTML has been entered above.'
+            hideCondition: ''
+            type: 5
+            passableThroughUrl: '0'
+            value: page
+            testVariable: 14
+            name: template
+            wizardStep: 1
+            stepTitle: Template
+            order: 1
+            wizard: 1
+            definition:
+              defvalue: page
+              placeholder: 0
+    test: 1
+    groups: ''
+    starterContent: true
+    hash: 6b794cd71546f632b4883fc85722cac283feb19b
+  -
+    class_name: Test
+    id: 2
+    name: showPage
+    accessibility: 2
+    archived: '0'
+    visibility: 2
+    type: 1
+    code: null
+    description: 'Shows page to user.'
+    variables:
+      -
+        class_name: TestVariable
+        id: 18
+        name: .branch
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 1
+      -
+        class_name: TestVariable
+        id: 19
+        name: bgWorkers
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 2
+      -
+        class_name: TestVariable
+        id: 20
+        name: buttonLabel
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: Next
+        test: 2
+        parentVariable: 3
+      -
+        class_name: TestVariable
+        id: 21
+        name: content
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: ''
+        test: 2
+        parentVariable: 4
+      -
+        class_name: TestVariable
+        id: 22
+        name: cookies
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 5
+      -
+        class_name: TestVariable
+        id: 23
+        name: cookies
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 6
+      -
+        class_name: TestVariable
+        id: 24
+        name: footer
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: |
+          Created with 
+          <a href="http://www.concertoplatform.com" target="_blank">
+          	Concerto Platform
+          </a>
+          
+        test: 2
+        parentVariable: 7
+      -
+        class_name: TestVariable
+        id: 25
+        name: html
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 8
+      -
+        class_name: TestVariable
+        id: 26
+        name: logo
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: ''
+        test: 2
+        parentVariable: 9
+      -
+        class_name: TestVariable
+        id: 27
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 2
+        parentVariable: 10
+      -
+        class_name: TestVariable
+        id: 28
+        name: protectedFilesAccess
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 2
+        parentVariable: 11
+      -
+        class_name: TestVariable
+        id: 29
+        name: response
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 12
+      -
+        class_name: TestVariable
+        id: 30
+        name: sessionFilesAccess
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 2
+        parentVariable: 13
+      -
+        class_name: TestVariable
+        id: 31
+        name: template
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 14
+      -
+        class_name: TestVariable
+        id: 32
+        name: templateParams
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 2
+        parentVariable: 15
+      -
+        class_name: TestVariable
+        id: 33
+        name: timeLimit
+        type: 0
+        description: 'Time limit in seconds.'
+        passableThroughUrl: '0'
+        value: '0'
+        test: 2
+        parentVariable: 16
+      -
+        class_name: TestVariable
+        id: 34
+        name: title
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: ''
+        test: 2
+        parentVariable: 17
+    sourceWizard: 1
+    sourceWizardTest: 12
+    nodes: {  }
+    nodesConnections: {  }
+    baseTemplate: null
+    tags: _concerto_core
+    groups: ''
+    protected: '0'
+    starterContent: true
+    hash: ca70ad146fe78e9d8c579a9536cd394f92707190
+  -
+    class_name: ViewTemplate
+    id: 1
+    name: page
+    description: ''
+    accessibility: 2
+    archived: '0'
+    head: ''
+    css: |
+      :root {
+        --option-bg: #f3f3f3;
+        --option-hover-bg: #efefef;
+        --option-color: #000000;
+        --option-unselected-bg: #ffffd5;
+        --error-color: #f32828;
+        --accent-light-color: #45b87e;
+        --accent-dark-color: #35a26b;
+        --font-color-for-accent-bg: #ffffff;
+        --main-font-style: 'Open Sans', sans-serif;
+        --main-font-color: #000000;
+        --main-font-size: 16px;
+        --header-bg: #4581b5;
+        --header-color: #ffffff;
+      }
+      
+      .body {
+        min-height: 100vh;
+        position: relative;
+        font-size: var(--main-font-size);
+        font-family: var(--main-font-style);
+        color: var(--main-font-color);
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
+      }
+      
+      .main-btn {
+        background-color: var(--accent-light-color);
+        border: none;
+        padding: 10px 20px;
+        font-size: var(--main-font-size);
+        color: var(--font-color-for-accent-bg);
+        display: block;
+        min-width: 100px;
+        cursor: pointer;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: background-color;
+        transition-property: background-color;
+        outline: none;
+      }
+      
+      .main-btn:hover {
+        background-color: var(--accent-dark-color);
+      }
+      
+      .main-btn:disabled {
+        background-color: var(--option-hover-bg);
+        color: #ccc;
+        cursor: default;
+      }
+      
+      .left-btn {
+        margin: 0 auto 0 0;
+      }
+      
+      .right-btn {
+        margin: 0 0 0 auto;
+      }
+      
+      .question-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      
+      @media screen and (max-width: 500px) {
+        .main-btn {
+          min-width: 0;
+        }
+      }
+      
+    js: |
+      testRunner.controllerProvider.register("page", function($scope) {
+        $scope.buttonLabel = testRunner.R.buttonLabel;
+      });
+      
+    html: |
+      <div class="body" ng-controller="page">
+      	{{template:header}}
+      	<div class="questions">
+      		<div class="container">
+      			{{content}}
+      			<div class="question-footer">
+      				<button class="main-btn right-btn" id="submitButton" name="next" ng-show="buttonLabel">
+      					{{buttonLabel}}
+      				</button>
+      			</div>
+      		</div>
+      	</div>
+      	{{template:footer}}
+      </div>
+      
+    groups: ''
+    starterContent: true
+    hash: 821c091b8a66db4390555597d9ee1b226d08482e
+  -
+    class_name: Test
+    id: 3
+    name: _eval
+    accessibility: 2
+    archived: '0'
+    visibility: 2
+    type: 0
+    code: |
+      sanitizedCode = concerto.test.sanitizeSource(code)
+      result = eval(parse(text=sanitizedCode))
+      
+    description: 'Evaluate R code.'
+    variables:
+      -
+        class_name: TestVariable
+        id: 35
+        name: code
+        type: 0
+        description: 'Code value is expected to be text.'
+        passableThroughUrl: '0'
+        value: null
+        test: 3
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 36
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 3
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 37
+        name: result
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 3
+        parentVariable: null
+    sourceWizard: null
+    sourceWizardTest: null
+    nodes: {  }
+    nodesConnections: {  }
+    baseTemplate: null
+    tags: ''
+    groups: ''
+    protected: '0'
+    starterContent: true
+    hash: 79b7cb208ad587fc58328edd0500b21e110c84ee
+  -
+    class_name: TestWizard
+    id: 2
+    name: eval
+    description: ''
+    accessibility: 2
+    archived: '0'
+    steps:
+      -
+        class_name: TestWizardStep
+        id: 2
+        title: eval
+        description: ''
+        orderNum: 0
+        colsNum: 0
+        wizard: 2
+        params:
+          -
+            class_name: TestWizardParam
+            id: 11
+            label: Code
+            description: 'R code to execute'
+            hideCondition: ''
+            type: 11
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 35
+            name: code
+            wizardStep: 2
+            stepTitle: eval
+            order: 0
+            wizard: 2
+            definition:
+              placeholder: 0
+    test: 3
+    groups: ''
+    starterContent: true
+    hash: bc7093f9db2feb380a956af247f0d3c64b57c4dd
+  -
+    class_name: Test
+    id: 4
+    name: eval
+    accessibility: 2
+    archived: '0'
+    visibility: 2
+    type: 1
+    code: ''
+    description: ''
+    variables:
+      -
+        class_name: TestVariable
+        id: 38
+        name: code
+        type: 0
+        description: 'R code to execute'
+        passableThroughUrl: '0'
+        value: null
+        test: 4
+        parentVariable: 35
+      -
+        class_name: TestVariable
+        id: 39
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 4
+        parentVariable: 36
+      -
+        class_name: TestVariable
+        id: 40
+        name: result
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 4
+        parentVariable: 37
+    sourceWizard: 2
+    sourceWizardTest: 3
+    nodes: {  }
+    nodesConnections: {  }
+    baseTemplate: null
+    tags: _concerto_core
+    groups: ''
+    protected: '0'
+    starterContent: true
+    hash: a1813408954c252890e050ddb508703602597c9e
+  -
+    class_name: Test
+    id: 5
+    name: rescoreLogic2
+    accessibility: 0
+    archived: '0'
+    visibility: 0
+    type: 2
+    code: ''
+    description: ''
+    variables:
+      -
+        class_name: TestVariable
+        id: 41
+        name: displayPVals
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 42
+        name: displayPVals
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 43
+        name: displayThetas
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 44
+        name: displayThetas
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 45
+        name: htmlStr
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 46
+        name: iterations
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 47
+        name: iterations
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 48
+        name: numBins
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 49
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 50
+        name: pTable
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 51
+        name: pTable
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 52
+        name: questionTable
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 53
+        name: questionTable
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 54
+        name: responseTable
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 55
+        name: responseTable
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 56
+        name: sessions
+        type: 0
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 57
+        name: sessions
+        type: 1
+        description: ''
+        passableThroughUrl: '0'
+        value: null
+        test: 5
+        parentVariable: null
+    sourceWizard: null
+    sourceWizardTest: null
+    nodes:
+      -
+        class_name: TestNode
+        id: 1
+        title: ''
+        type: 1
+        posX: 14809
+        posY: 15001
+        flowTest: 5
+        sourceTest: 5
+        sourceTestName: rescoreLogic2
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 1
+            value: null
+            node: 1
+            variable: 41
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 2
+            value: null
+            node: 1
+            variable: 43
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 3
+            value: null
+            node: 1
+            variable: 46
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 4
+            value: null
+            node: 1
+            variable: 48
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 5
+            value: null
+            node: 1
+            variable: 50
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 6
+            value: null
+            node: 1
+            variable: 52
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 7
+            value: null
+            node: 1
+            variable: 54
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 8
+            value: null
+            node: 1
+            variable: 56
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+      -
+        class_name: TestNode
+        id: 2
+        title: ''
+        type: 2
+        posX: 15943
+        posY: 15046
+        flowTest: 5
+        sourceTest: 5
+        sourceTestName: rescoreLogic2
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 9
+            value: null
+            node: 2
+            variable: 42
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 10
+            value: null
+            node: 2
+            variable: 44
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 11
+            value: null
+            node: 2
+            variable: 45
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+          -
+            class_name: TestNodePort
+            id: 12
+            value: null
+            node: 2
+            variable: 47
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 13
+            value: null
+            node: 2
+            variable: 51
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 14
+            value: null
+            node: 2
+            variable: 53
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 15
+            value: null
+            node: 2
+            variable: 55
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 16
+            value: null
+            node: 2
+            variable: 57
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+      -
+        class_name: TestNode
+        id: 3
+        title: ''
+        type: 0
+        posX: 15694
+        posY: 14775
+        flowTest: 5
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 17
+            value: Next
+            node: 3
+            variable: 20
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 18
+            value: continue
+            node: 3
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 19
+            value: null
+            node: 3
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 20
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 3
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 21
+            value: ''
+            node: 3
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 22
+            value: ''
+            node: 3
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 23
+            value: page
+            node: 3
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 24
+            value: null
+            node: 3
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 25
+            value: '1'
+            node: 3
+            variable: 33
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 26
+            value: ''
+            node: 3
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 27
+            value: null
+            node: 3
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 28
+            value: '0'
+            node: 3
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 29
+            value: '0'
+            node: 3
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+          -
+            class_name: TestNodePort
+            id: 30
+            value: null
+            node: 3
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 31
+            value: null
+            node: 3
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 32
+            value: null
+            node: 3
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 33
+            value: '0'
+            node: 3
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+      -
+        class_name: TestNode
+        id: 4
+        title: part1
+        type: 0
+        posX: 15253
+        posY: 14970
+        flowTest: 5
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 34
+            value: |
+              library("catR")
+              
+              
+              
+              if((index + 100) < length(sessions)){
+              	endIndex <- index + 100  
+              }else{
+              	endIndex <- length(sessions)  
+              }
+              
+              
+              for(i in (index+1):endIndex){
+                  sessResponses = subset(responseTable,session_id == sessions[i])
+                  scores <- sessResponses[["score"]]
+                  #print(sessResponses)
+                  params = matrix(,nrow =0 , ncol = 4)
+                  dimnames(params) = list(c(),c("p1","p2","p3","p4"))
+                  for(j in 1:length(sessResponses[["item_id"]])){
+                    question <- subset(questionTable, id==sessResponses[["item_id"]][j])
+                    #print(question)
+                    params <- rbind(params,c(question[["p1"]][1],question[["p2"]][1],question[["p3"]][1],question[["p4"]][1]))
+                  }
+                  theta <- thetaEst(params,scores)
+                  for(k in 1:length(sessResponses[["item_id"]])){
+                    sessThetas <- c(sessThetas, theta)
+                  }
+              }
+              index <- endIndex
+              #if(endIndex == length(sessions)){
+              #	newResponseTable <- cbind(responseTable,sessThetas)
+              #  	print(newResponseTable)
+              #}
+              
+              
+            node: 4
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 35
+            value: null
+            node: 4
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 36
+            value: '0'
+            node: 4
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 37
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 38
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 39
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 40
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: newResponseTable
+            pointer: '0'
+            pointerVariable: newResponseTable
+          -
+            class_name: TestNodePort
+            id: 41
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 42
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 43
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 44
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 45
+            value: ''
+            node: 4
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+      -
+        class_name: TestNode
+        id: 5
+        title: setup
+        type: 0
+        posX: 14984
+        posY: 14971
+        flowTest: 5
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 46
+            value: |
+              index <- 0
+              sessThetas <- c()
+            node: 5
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 47
+            value: null
+            node: 5
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 48
+            value: '0'
+            node: 5
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 49
+            value: ''
+            node: 5
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 50
+            value: ''
+            node: 5
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 51
+            value: ''
+            node: 5
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+      -
+        class_name: TestNode
+        id: 6
+        title: 'loop logic'
+        type: 0
+        posX: 15327
+        posY: 14599
+        flowTest: 5
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 52
+            value: |
+              if(index >= length(sessions)){
+                .branch = "continue"
+              
+              } else {
+                .branch = "loop"
+              }
+            node: 6
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 53
+            value: null
+            node: 6
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 54
+            value: '0'
+            node: 6
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '0'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 55
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 56
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 57
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 58
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: loop
+            pointer: '0'
+            pointerVariable: loop
+          -
+            class_name: TestNodePort
+            id: 59
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: continue
+            pointer: '0'
+            pointerVariable: continue
+          -
+            class_name: TestNodePort
+            id: 60
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 61
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 62
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 63
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: newResponseTable
+            pointer: '0'
+            pointerVariable: newResponseTable
+          -
+            class_name: TestNodePort
+            id: 64
+            value: ''
+            node: 6
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+      -
+        class_name: TestNode
+        id: 7
+        title: ''
+        type: 0
+        posX: 15030
+        posY: 14704
+        flowTest: 5
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 65
+            value: Next
+            node: 7
+            variable: 20
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 66
+            value: loop
+            node: 7
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 67
+            value: null
+            node: 7
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 68
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 7
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 69
+            value: ''
+            node: 7
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 70
+            value: ''
+            node: 7
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 71
+            value: page
+            node: 7
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 72
+            value: null
+            node: 7
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 73
+            value: '1'
+            node: 7
+            variable: 33
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 74
+            value: ''
+            node: 7
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 75
+            value: null
+            node: 7
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 76
+            value: '0'
+            node: 7
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 77
+            value: '0'
+            node: 7
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+          -
+            class_name: TestNodePort
+            id: 78
+            value: null
+            node: 7
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 79
+            value: null
+            node: 7
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 80
+            value: null
+            node: 7
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 81
+            value: '0'
+            node: 7
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 82
+            value: ''
+            node: 7
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 83
+            value: ''
+            node: 7
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: index
+            pointer: '0'
+            pointerVariable: index
+          -
+            class_name: TestNodePort
+            id: 84
+            value: ''
+            node: 7
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 85
+            value: ''
+            node: 7
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+      -
+        class_name: TestNode
+        id: 8
+        title: ''
+        type: 0
+        posX: 15614
+        posY: 14962
+        flowTest: 5
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 86
+            value: |
+              #NOTE: some lines in this code may be redundant from a previous debug attempt
+              
+              library("catR")
+              sessThetas <- c(sessThetas)
+              sessThetas <- as.numeric(sessThetas)
+              sessThetas <- sessThetas[-1]
+              newResponseTable <- cbind(responseTable,sessThetas)
+              
+              binSize <- 3 #this line is pretty much useless unless you want to switch to controlling number of points per bin instead of number of bins
+              
+              htmlStr <- ""
+              tempQuestionTable <- questionTable
+              print(paste("timed out question numbers for iteration", iterations, ":"))
+              for(i in 2:length(questionTable[["id"]])){
+                itemTable <- subset(newResponseTable, item_id == questionTable[["id"]][i])
+                itemTable <- itemTable[order(itemTable$sessThetas),]
+                thetas <- itemTable[["sessThetas"]] #Grab ordered theta list
+                #thetas <- droplevels(thetas)
+                thetas <- c(thetas)
+                scores <- itemTable[["score"]]
+                id = questionTable[["id"]][i]
+              
+              
+                if(length(thetas) > 10 ){ #check to make sure there are more than 10 responses
+                  x <- c()
+                  y <- c()
+              
+              
+                  #Bin thetas and scores
+                  binSize <- length(scores)/numBins
+                  for(j in seq(from=1, to=length(thetas), by=binSize)){
+                    if(j+binSize < length(thetas)){
+                      thetaBin <- thetas[j:(j+(binSize-1))]
+                      scoreBin <- scores[j:(j+(binSize-1))]
+              
+                      #Gordon's binning method
+                      for(b in 1:binSize){
+                        x <- c(x, mean(thetaBin))
+                        y <- c(y, mean(scoreBin))
+                      }
+              
+                    } else{
+                      thetaBin <- thetas[j:length(thetas)]
+                      scoreBin <- scores[j:length(scores)]
+              
+                      #Gordon's binning method
+                      for(b in 1:binSize){
+                        x <- c(x, mean(thetaBin))
+                        y <- c(y, mean(scoreBin))
+                      }
+              
+                    }
+                  }
+                  #print(questionTable[["id"]][i])
+                  #print(i)
+                  #print("x")
+                  #print(x)
+                  #print("y")
+                  #print(y)
+              
+                  #Graph stuff with Gordon's function
+                  testp1s <- questionTable[["p1"]]
+                  testp1s <- c(testp1s)
+                  discernment_param_start = testp1s[i]
+                  
+                  testp2s <- questionTable[["p2"]]
+                  testp2s <- c(testp2s)
+                  diff_param_start = testp2s[i]
+                  print(discernment_param_start)
+                  print(diff_param_start)
+              
+                  Func <- function(x,discernment_param,diff_param){0.25 + (1-0.25)/(1+exp(-discernment_param*(x-diff_param)))} # <- Gordon's Function
+              
+                  #default values for if error occurs
+                  discernment <- tempQuestionTable[["p1"]][i]
+                  difficulty <- tempQuestionTable[["p2"]][i]
+                  tryCatch({
+                    fit <- nls(y~Func(x,discernment_param,diff_param),start=list(discernment_param=discernment_param_start,        diff_param=discernment_param_start),algorithm="port",lower=c(0,-4),upper=c(3,4),control = list(maxiter=1000, warnOnly=T))
+                    discernment <- summary(fit)$coefficients[1,1]
+                    difficulty <- summary(fit)$coefficients[2,1]
+                  }, warning = function(w){
+              
+                    tryCatch({
+                      discernment_param_start<-coef(summary(fit))["discernment_param","Estimate"]
+                      diff_param_start<-coef(summary(fit))["diff_param","Estimate"]  
+              
+                      fit <- nls(y~Func(x,discernment_param,diff_param),start=list(discernment_param=discernment_param_start,       diff_param=diff_param_start),algorithm="port",lower=c(0,-4),upper=c(3,4),control = list(maxiter=1000, warnOnly=T))
+              
+                      discernment <- summary(fit)$coefficients[1,1]
+                      difficulty <- summary(fit)$coefficients[2,1]
+                    }, warning = function(w){
+                      discernment <- tempQuestionTable[["p1"]][i]
+                      difficulty <- tempQuestionTable[["p2"]][i]
+                    }, error = function(e){
+                      discernment <- tempQuestionTable[["p1"]][i]
+                      difficulty <- tempQuestionTable[["p2"]][i]
+                    })
+              
+                  },error = function(e){
+                    print(id)
+                    print(e)
+                    discernment <- tempQuestionTable[["p1"]][i]
+                    difficulty <- tempQuestionTable[["p2"]][i]
+                    print("discernment:")
+                    print(discernment)
+                    print("difficulty:")
+                    print(difficulty)
+                  })
+                  if((iterations == 1) & displayThetas){
+                    x2 <- seq(-4,4,0.1)
+                    f=0.25 + (1-0.25)/(1+exp(-discernment_param_start*(x2-diff_param_start)))
+                    filePath <- paste("/files/images/newGraphTest3",i,".png", sep = "")
+                    png(file = paste("/data",filePath,sep=""), width = 600, height = 350)
+                    plot(x,y,col="black", xlab = "Theta", ylab = "Score", xlim = c(-4,4),ylim = c(0,1))
+                    lines(x2,f)
+                    title(main=id)
+                    htmlStr <- paste(htmlStr,"<p>",id,"</p><br/>","<img src =",filePath,">")
+                    dev.off()
+                  }
+                  tempQuestionTable[["p1"]][i] = discernment 
+                  tempQuestionTable[["p2"]][i] = difficulty
+                  if(displayPVals){
+                    pTable <-rbind(pTable,c(id,discernment,difficulty))
+                  }
+                }
+              
+              }
+              
+              print(paste("completed iteration:", iterations))
+              iterations <- iterations - 1
+              questionTable <- tempQuestionTable
+              print(questionTable)
+            node: 8
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 87
+            value: null
+            node: 8
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 88
+            value: '0'
+            node: 8
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 89
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: newResponseTable
+            pointer: '0'
+            pointerVariable: newResponseTable
+          -
+            class_name: TestNodePort
+            id: 90
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 91
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 92
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+          -
+            class_name: TestNodePort
+            id: 93
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 94
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 95
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 96
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 97
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 98
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 99
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 100
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessThetas
+            pointer: '0'
+            pointerVariable: sessThetas
+          -
+            class_name: TestNodePort
+            id: 101
+            value: ''
+            node: 8
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+    nodesConnections:
+      -
+        class_name: TestNodeConnection
+        id: 1
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: null
+        destinationNode: 5
+        destinationPort: null
+        returnFunction: ''
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 2
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 8
+        destinationNode: 5
+        destinationPort: 49
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 3
+        flowTest: 5
+        sourceNode: 5
+        sourcePort: 50
+        destinationNode: 4
+        destinationPort: 37
+        returnFunction: index
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 4
+        flowTest: 5
+        sourceNode: 4
+        sourcePort: 38
+        destinationNode: 6
+        destinationPort: 55
+        returnFunction: index
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 5
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 56
+        destinationNode: 4
+        destinationPort: 37
+        returnFunction: index
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 6
+        flowTest: 5
+        sourceNode: 5
+        sourcePort: 48
+        destinationNode: 4
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 7
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 8
+        destinationNode: 6
+        destinationPort: 60
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 8
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 8
+        destinationNode: 4
+        destinationPort: 39
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 9
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 58
+        destinationNode: 7
+        destinationPort: null
+        returnFunction: loop
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 10
+        flowTest: 5
+        sourceNode: 3
+        sourcePort: 33
+        destinationNode: 8
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 11
+        flowTest: 5
+        sourceNode: 4
+        sourcePort: 36
+        destinationNode: 6
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 12
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 59
+        destinationNode: 3
+        destinationPort: null
+        returnFunction: continue
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 13
+        flowTest: 5
+        sourceNode: 7
+        sourcePort: 81
+        destinationNode: 4
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 14
+        flowTest: 5
+        sourceNode: 7
+        sourcePort: 83
+        destinationNode: 4
+        destinationPort: 37
+        returnFunction: index
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 15
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 56
+        destinationNode: 7
+        destinationPort: 82
+        returnFunction: index
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 16
+        flowTest: 5
+        sourceNode: 8
+        sourcePort: 88
+        destinationNode: 2
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 17
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 7
+        destinationNode: 4
+        destinationPort: 41
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 18
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 6
+        destinationNode: 4
+        destinationPort: 42
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 19
+        flowTest: 5
+        sourceNode: 4
+        sourcePort: 44
+        destinationNode: 6
+        destinationPort: 61
+        returnFunction: sessThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 20
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 62
+        destinationNode: 7
+        destinationPort: 84
+        returnFunction: sessThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 21
+        flowTest: 5
+        sourceNode: 7
+        sourcePort: 85
+        destinationNode: 4
+        destinationPort: 43
+        returnFunction: sessThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 22
+        flowTest: 5
+        sourceNode: 5
+        sourcePort: 51
+        destinationNode: 4
+        destinationPort: 43
+        returnFunction: sessThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 23
+        flowTest: 5
+        sourceNode: 8
+        sourcePort: 92
+        destinationNode: 2
+        destinationPort: 11
+        returnFunction: htmlStr
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 24
+        flowTest: 5
+        sourceNode: 8
+        sourcePort: 93
+        destinationNode: 2
+        destinationPort: 14
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 25
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 5
+        destinationNode: 8
+        destinationPort: 94
+        returnFunction: pTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 26
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 4
+        destinationNode: 8
+        destinationPort: 91
+        returnFunction: numBins
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 27
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 2
+        destinationNode: 8
+        destinationPort: 95
+        returnFunction: displayThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 28
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 1
+        destinationNode: 8
+        destinationPort: 96
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 29
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 1
+        destinationNode: 2
+        destinationPort: 9
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 30
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 2
+        destinationNode: 2
+        destinationPort: 10
+        returnFunction: displayThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 31
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 3
+        destinationNode: 8
+        destinationPort: 98
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 32
+        flowTest: 5
+        sourceNode: 8
+        sourcePort: 97
+        destinationNode: 2
+        destinationPort: 12
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 33
+        flowTest: 5
+        sourceNode: 8
+        sourcePort: 99
+        destinationNode: 2
+        destinationPort: 13
+        returnFunction: pTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 34
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 7
+        destinationNode: 2
+        destinationPort: 15
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 35
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 8
+        destinationNode: 2
+        destinationPort: 16
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 36
+        flowTest: 5
+        sourceNode: 4
+        sourcePort: 45
+        destinationNode: 8
+        destinationPort: 90
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 37
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 7
+        destinationNode: 6
+        destinationPort: 64
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 38
+        flowTest: 5
+        sourceNode: 6
+        sourcePort: 62
+        destinationNode: 8
+        destinationPort: 100
+        returnFunction: sessThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 39
+        flowTest: 5
+        sourceNode: 1
+        sourcePort: 7
+        destinationNode: 8
+        destinationPort: 101
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+    baseTemplate: null
+    tags: ''
+    groups: ''
+    protected: '0'
+    starterContent: false
+    hash: 2bd5d64c3939f669e77a330f492d2c639ead4088
+  -
+    class_name: Test
+    id: 6
+    name: _rescore2.0
+    accessibility: 0
+    archived: '0'
+    visibility: 0
+    type: 2
+    code: ''
+    description: ''
+    variables:
+      -
+        class_name: TestVariable
+        id: 58
+        name: displayPVals
+        type: 0
+        description: 'if you are going to display the P values at the end.'
+        passableThroughUrl: '0'
+        value: null
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 59
+        name: displayThetas
+        type: 0
+        description: 'if you are going to display the thetas at the end'
+        passableThroughUrl: '0'
+        value: null
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 60
+        name: iterations
+        type: 0
+        description: 'number of iterations to complete'
+        passableThroughUrl: '0'
+        value: '40'
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 61
+        name: numBins
+        type: 0
+        description: 'number of bins'
+        passableThroughUrl: '0'
+        value: '10'
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 62
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 63
+        name: responseTable
+        type: 0
+        description: 'name of the response table to be used'
+        passableThroughUrl: '0'
+        value: null
+        test: 6
+        parentVariable: null
+      -
+        class_name: TestVariable
+        id: 64
+        name: updating
+        type: 0
+        description: 'if the script should update question tables or not'
+        passableThroughUrl: '0'
+        value: 'TRUE'
+        test: 6
+        parentVariable: null
+    sourceWizard: null
+    sourceWizardTest: null
+    nodes:
+      -
+        class_name: TestNode
+        id: 9
+        title: ''
+        type: 1
+        posX: 14523
+        posY: 15057
+        flowTest: 6
+        sourceTest: 6
+        sourceTestName: _rescore2.0
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 102
+            value: null
+            node: 9
+            variable: 63
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 103
+            value: '40'
+            node: 9
+            variable: 60
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 104
+            value: '10'
+            node: 9
+            variable: 61
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 105
+            value: null
+            node: 9
+            variable: 58
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 106
+            value: null
+            node: 9
+            variable: 59
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 107
+            value: 'TRUE'
+            node: 9
+            variable: 64
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: updating
+            pointer: '0'
+            pointerVariable: updating
+      -
+        class_name: TestNode
+        id: 10
+        title: ''
+        type: 2
+        posX: 17016
+        posY: 14959
+        flowTest: 6
+        sourceTest: 6
+        sourceTestName: _rescore2.0
+        sourceTestDescription: ''
+        ports: {  }
+      -
+        class_name: TestNode
+        id: 11
+        title: ''
+        type: 0
+        posX: 14923
+        posY: 14693
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 108
+            value: Next
+            node: 11
+            variable: 20
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 109
+            value: ''
+            node: 11
+            variable: 21
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 110
+            value: null
+            node: 11
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 111
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 11
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 112
+            value: |
+              <p>
+              	<label for="questionTables">
+              		Question Table: 
+              	</label>
+              	
+              	<select multiple="multiple" name="questionTableName" style="height:200px;">
+              		{{tablesStr}} 
+              	</select>
+              </p>
+              
+              <p>
+              	hold ctrl to select multiple items
+              </p>
+              
+              <p>
+              </p>
+              <!--<p>
+              	<label for="responseTableName">
+              		Response Table: 
+              	</label>
+              	
+              	<select name="responseTableName">
+              		{{tablesStr}} 
+              	</select>
+              </p>
+               -->
+              <button>
+              	Submit
+              </button>
+              <p>
+              </p>
+              
+            node: 11
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 113
+            value: ''
+            node: 11
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 114
+            value: page
+            node: 11
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 115
+            value: null
+            node: 11
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 116
+            value: '0'
+            node: 11
+            variable: 33
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 117
+            value: ''
+            node: 11
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 118
+            value: null
+            node: 11
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 119
+            value: null
+            node: 11
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 120
+            value: null
+            node: 11
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 121
+            value: '0'
+            node: 11
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 122
+            value: ''
+            node: 11
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: tablesStr
+            pointer: '0'
+            pointerVariable: tables
+          -
+            class_name: TestNodePort
+            id: 123
+            value: ''
+            node: 11
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: responseTableName
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 124
+            value: ''
+            node: 11
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: questionTableName
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 125
+            value: null
+            node: 11
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 126
+            value: '0'
+            node: 11
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 127
+            value: '0'
+            node: 11
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 12
+        title: ''
+        type: 0
+        posX: 14642
+        posY: 14733
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 128
+            value: |
+              #---------------------------------------------
+              # The purpose of this eval node is to grab a 
+              # list of all of the tables in the database
+              # associated with this Concerto instance and
+              # output a string formatted in html to be option
+              # tags allowing users to pick data base names
+              #
+              # inputs: none
+              #
+              # returns: tableStr -> a string formatted into
+              # html option tags for each of the data tables
+              # in this instance of Concerto
+              #---------------------------------------------
+              
+              
+              #grab data from database and convert to vector
+              tables = concerto.table.query('show tables')
+              print(tables)
+              
+              #create string to give to showpage
+              tablesOptionStr <- ''
+              
+              #add new html option tag for each item in tables
+              for (value in tables[['Tables_in_concerto']]) {
+                newOption = paste("<option value = \"",value,"\">",value,"</option>")
+                tablesOptionStr = paste(tablesOptionStr, newOption)
+              }
+              
+              cat(paste("=====\ntablesStr\n=====\n\n", tablesOptionStr, "\n\n", sep=""))
+              
+            node: 12
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 129
+            value: null
+            node: 12
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 130
+            value: '0'
+            node: 12
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 131
+            value: ''
+            node: 12
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: tablesOptionStr
+            pointer: '0'
+            pointerVariable: tables
+      -
+        class_name: TestNode
+        id: 13
+        title: 'thetas display page'
+        type: 0
+        posX: 16532
+        posY: 14978
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 132
+            value: Next
+            node: 13
+            variable: 20
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 133
+            value: ''
+            node: 13
+            variable: 21
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 134
+            value: null
+            node: 13
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 135
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 13
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 136
+            value: |
+              <div style="margin: 15 15 0 15">
+              	<button type="button">
+              		Finish
+              	</button>
+              </div>
+              
+              <div style="width: 100%;">
+              	<div style="margin:10 auto; width:fit-content;">
+              		{{htmlStr}}
+              	</div>
+              </div>
+              
+            node: 13
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 137
+            value: ''
+            node: 13
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 138
+            value: page
+            node: 13
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 139
+            value: null
+            node: 13
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 140
+            value: '0'
+            node: 13
+            variable: 33
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 141
+            value: ''
+            node: 13
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 142
+            value: null
+            node: 13
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 143
+            value: null
+            node: 13
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 144
+            value: null
+            node: 13
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 145
+            value: '0'
+            node: 13
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 146
+            value: ''
+            node: 13
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+          -
+            class_name: TestNodePort
+            id: 147
+            value: null
+            node: 13
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 148
+            value: '0'
+            node: 13
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 149
+            value: '0'
+            node: 13
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 14
+        title: 'set up Eval'
+        type: 0
+        posX: 15350
+        posY: 15060
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 150
+            value: |
+              #---------------------------------------------
+              # The goal of this eval node is to generate the
+              # tables needed to begin the rescoring process
+              #
+              # inputs: 
+              # 	questionTableName -> a string that is the
+              # 	name of the question table to have questions
+              # 	rescored
+              #
+              # 	responseTableName -> a string that is the
+              # 	name of the response table to where responses
+              # 	for question table have been stored
+              #
+              # returns: 
+              # 	questionTable -> data frame of question table
+              #	with default p values (p1,p2,p3,p4) -> (2,2,0.25,1)
+              #
+              #	responseTable -> data frame of response table
+              #	filtered to only have responses to questions from
+              #	question table
+              #
+              #	sessions -> list of unique sessions from
+              #	filtered responseTable
+              #---------------------------------------------
+              
+              pTable<- data.frame(matrix(ncol = 3))
+              colnames(pTable) <- c("id","p1","p2")
+              #pTable <- rbind(pTable, c("1111",2,4))
+              print("stetting up for rescoring process...")
+              
+              #TODO: split set up and refactoring Node into two Nodes
+              #	Ideally, by the end of set up I just want to generate questions table with default P values,
+              #	the response table filtered to only have questions from the question table/tables selected,
+              #	and a distinct list of session ids from filtered response table
+              
+              #-------------------------------------
+              # Setup
+              #-------------------------------------
+              
+              
+              #Grab Response Table and filter it
+              responseTable <- concerto.table.query("select item_id, score, session_id from {{responseTableName}}")
+              #tempResponses <- subset(responseTable,item_id == questionTable[["id"]][1])
+              
+              #Note that number of questions in resulting response table will be less than the question table
+              #TODO: get 
+              #for(j in 2:length(questionTable[["id"]])){
+              #  newResponses <- subset(responseTable,item_id == questionTable[["id"]][j])
+              #  tempResponses <- rbind(tempResponses,newResponses)
+              #}
+              
+              #responseTable <- tempResponses
+              
+              responseTable <- responseTable[order(responseTable$session_id),]
+              
+              #Generate list of unique session ids for the test
+              sessions <- unique(responseTable[["session_id"]])
+              
+              
+              #Generate "Question Table" from response table with general p1 p2 p3 & p4
+              questionList <- unique(responseTable[["item_id"]])
+              
+              p1 <- c()
+              p2 <- c()
+              p3 <- c()
+              p4 <-c()
+              
+              for(i in 1:length(questionList)){
+                p1 <- c(p1,2)
+                p2 <- c(p2,2)
+                p3 <- c(p3,0.25)
+                p4 <- c(p4,1)
+              }
+              
+              id <- questionList
+              questionTable <- data.frame(id,p1,p2,p3,p4)
+              
+              #questionTable = cbind(questionTable, p1)
+              #questionTable = cbind(questionTable, p2)
+              #questionTable = cbind(questionTable, p3)
+              #questionTable = cbind(questionTable, p4)
+              
+              # Debug Print Statements
+              #print("Response Table:")
+              #print(responses)
+              #print(questionList)
+              
+              #print("Question Table:")
+              #print(questionTable)
+              
+              #print("Session Ids:")
+              #print(sessions)
+              #print(pTable)
+            node: 14
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 151
+            value: null
+            node: 14
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 152
+            value: '0'
+            node: 14
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 153
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: questionTableName
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 154
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTableName
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 155
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 156
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 157
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 158
+            value: ''
+            node: 14
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+      -
+        class_name: TestNode
+        id: 15
+        title: ''
+        type: 0
+        posX: 15165
+        posY: 14916
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 159
+            value: ''
+            node: 15
+            variable: 20
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 160
+            value: 'Setting Up...'
+            node: 15
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 161
+            value: null
+            node: 15
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 162
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 15
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 163
+            value: ''
+            node: 15
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 164
+            value: ''
+            node: 15
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 165
+            value: page
+            node: 15
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 166
+            value: null
+            node: 15
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 167
+            value: '1'
+            node: 15
+            variable: 33
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 168
+            value: Message
+            node: 15
+            variable: 34
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 169
+            value: null
+            node: 15
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 170
+            value: null
+            node: 15
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 171
+            value: null
+            node: 15
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 172
+            value: '0'
+            node: 15
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 173
+            value: null
+            node: 15
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 174
+            value: '0'
+            node: 15
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 175
+            value: '0'
+            node: 15
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 16
+        title: ''
+        type: 0
+        posX: 15606
+        posY: 14902
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 176
+            value: ''
+            node: 16
+            variable: 20
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 177
+            value: Rescoring...
+            node: 16
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 178
+            value: null
+            node: 16
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 179
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 16
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 180
+            value: ''
+            node: 16
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 181
+            value: ''
+            node: 16
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 182
+            value: page
+            node: 16
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 183
+            value: null
+            node: 16
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 184
+            value: '1'
+            node: 16
+            variable: 33
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 185
+            value: Message
+            node: 16
+            variable: 34
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 186
+            value: null
+            node: 16
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 187
+            value: null
+            node: 16
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 188
+            value: null
+            node: 16
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 189
+            value: '0'
+            node: 16
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 190
+            value: null
+            node: 16
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 191
+            value: '0'
+            node: 16
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 192
+            value: '0'
+            node: 16
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 17
+        title: ''
+        type: 0
+        posX: 15885
+        posY: 14773
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 193
+            value: ''
+            node: 17
+            variable: 20
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 194
+            value: 'iterations left: {{iterations}}'
+            node: 17
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 195
+            value: null
+            node: 17
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 196
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 17
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 197
+            value: ''
+            node: 17
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 198
+            value: ''
+            node: 17
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 199
+            value: page
+            node: 17
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 200
+            value: null
+            node: 17
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 201
+            value: '1'
+            node: 17
+            variable: 33
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 202
+            value: ''
+            node: 17
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 203
+            value: null
+            node: 17
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 204
+            value: null
+            node: 17
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 205
+            value: null
+            node: 17
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 206
+            value: '0'
+            node: 17
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 207
+            value: ''
+            node: 17
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 208
+            value: ''
+            node: 17
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 209
+            value: null
+            node: 17
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 210
+            value: '0'
+            node: 17
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 211
+            value: '0'
+            node: 17
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 18
+        title: ''
+        type: 0
+        posX: 16253
+        posY: 14841
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 212
+            value: |
+              if (iterations == 0){
+                if(displayThetas){
+                  .branch = "thetas"
+                } else if(displayPVals){
+                  .branch = "pValues"
+                } else{
+                  .branch = "finish"
+                }
+                if(displayPVals){
+                  #print(length(pTable[["id"]]))
+                  #generate subtable for each unique item id
+                  items <- unique(pTable[["id"]])
+                  htmlStr <- ""
+                  for(i in 2:length(items)){
+                    itemId = items[i]
+                    values = subset(pTable, id == itemId)
+                    p1s <- values[["p1"]]
+                    p2s <- values[["p2"]]
+                    p <- length(p1s)
+                    
+                    
+                    filePath <- paste("/files/images/10BinsTestPVals",i,".png", sep = "")
+                    png(file = paste("/data",filePath,sep=""), width = 600, height = 350)
+                    par(mfrow=c(1,2))
+                    plot(seq(from = 1,to = p,by = 1),p1s,col="black", xlab = "Iteration", ylab = "p1", main = itemId)
+                    plot(seq(from = 1,to = p,by = 1),p2s,col="black", xlab = "Iteration", ylab = "p2", main = itemId)
+                    htmlStr <- paste(htmlStr,"<img style = 'border: 2px solid black;' src =",filePath,">")
+                    dev.off()
+                  }
+                }
+              } else{
+                .branch = "loop"
+              }
+            node: 18
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 213
+            value: null
+            node: 18
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 214
+            value: '0'
+            node: 18
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '0'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 215
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 216
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: loop
+            pointer: '0'
+            pointerVariable: loop
+          -
+            class_name: TestNodePort
+            id: 217
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: finish
+            pointer: '0'
+            pointerVariable: finish
+          -
+            class_name: TestNodePort
+            id: 218
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 219
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 220
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 221
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 222
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 223
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 224
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 225
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 226
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 227
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: pValues
+            pointer: '0'
+            pointerVariable: pValues
+          -
+            class_name: TestNodePort
+            id: 228
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 229
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: printPVals
+          -
+            class_name: TestNodePort
+            id: 230
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: thetas
+            pointer: '0'
+            pointerVariable: thetas
+          -
+            class_name: TestNodePort
+            id: 231
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 232
+            value: ''
+            node: 18
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+      -
+        class_name: TestNode
+        id: 19
+        title: 'p-value display page'
+        type: 0
+        posX: 16566
+        posY: 14746
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 233
+            value: Next
+            node: 19
+            variable: 20
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 234
+            value: ''
+            node: 19
+            variable: 21
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 235
+            value: null
+            node: 19
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 236
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 19
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 237
+            value: |
+              <div style="margin: 15 15 0 15">
+              	<button type="button">
+              		Finish
+              	</button>
+              </div>
+              
+              <div style="width: 100%;">
+              	<div style="margin:10 auto; width:fit-content;">
+              		{{htmlStr}}
+              	</div>
+              </div>
+              
+            node: 19
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 238
+            value: ''
+            node: 19
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 239
+            value: page
+            node: 19
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 240
+            value: null
+            node: 19
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 241
+            value: '0'
+            node: 19
+            variable: 33
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 242
+            value: ''
+            node: 19
+            variable: 34
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 243
+            value: null
+            node: 19
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 244
+            value: null
+            node: 19
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 245
+            value: null
+            node: 19
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 246
+            value: '0'
+            node: 19
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 247
+            value: ''
+            node: 19
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+          -
+            class_name: TestNodePort
+            id: 248
+            value: null
+            node: 19
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 249
+            value: '0'
+            node: 19
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 250
+            value: '0'
+            node: 19
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 20
+        title: ''
+        type: 0
+        posX: 16828
+        posY: 14793
+        flowTest: 6
+        sourceTest: 2
+        sourceTestName: showPage
+        sourceTestDescription: 'Shows page to user.'
+        ports:
+          -
+            class_name: TestNodePort
+            id: 251
+            value: Finish
+            node: 20
+            variable: 20
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: buttonLabel
+            pointer: '0'
+            pointerVariable: buttonLabel
+          -
+            class_name: TestNodePort
+            id: 252
+            value: |
+              <p>
+              	Rescoring Complete!
+              </p>
+              
+            node: 20
+            variable: 21
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: content
+            pointer: '0'
+            pointerVariable: content
+          -
+            class_name: TestNodePort
+            id: 253
+            value: null
+            node: 20
+            variable: 22
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 254
+            value: |
+              Created with 
+              <a href="http://www.concertoplatform.com" target="_blank">
+              	Concerto Platform
+              </a>
+              
+            node: 20
+            variable: 24
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: footer
+            pointer: '0'
+            pointerVariable: footer
+          -
+            class_name: TestNodePort
+            id: 255
+            value: ''
+            node: 20
+            variable: 25
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: html
+            pointer: '0'
+            pointerVariable: html
+          -
+            class_name: TestNodePort
+            id: 256
+            value: ''
+            node: 20
+            variable: 26
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: logo
+            pointer: '0'
+            pointerVariable: logo
+          -
+            class_name: TestNodePort
+            id: 257
+            value: page
+            node: 20
+            variable: 31
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: template
+            pointer: '0'
+            pointerVariable: template
+          -
+            class_name: TestNodePort
+            id: 258
+            value: null
+            node: 20
+            variable: 32
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: templateParams
+            pointer: '0'
+            pointerVariable: templateParams
+          -
+            class_name: TestNodePort
+            id: 259
+            value: '0'
+            node: 20
+            variable: 33
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: timeLimit
+            pointer: '0'
+            pointerVariable: timeLimit
+          -
+            class_name: TestNodePort
+            id: 260
+            value: Nice!
+            node: 20
+            variable: 34
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: title
+            pointer: '0'
+            pointerVariable: title
+          -
+            class_name: TestNodePort
+            id: 261
+            value: null
+            node: 20
+            variable: 18
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+          -
+            class_name: TestNodePort
+            id: 262
+            value: null
+            node: 20
+            variable: 23
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: cookies
+            pointer: '0'
+            pointerVariable: cookies
+          -
+            class_name: TestNodePort
+            id: 263
+            value: null
+            node: 20
+            variable: 29
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: response
+            pointer: '0'
+            pointerVariable: response
+          -
+            class_name: TestNodePort
+            id: 264
+            value: '0'
+            node: 20
+            variable: 27
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 265
+            value: null
+            node: 20
+            variable: 19
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: bgWorkers
+            pointer: '0'
+            pointerVariable: bgWorkers
+          -
+            class_name: TestNodePort
+            id: 266
+            value: '0'
+            node: 20
+            variable: 28
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: protectedFilesAccess
+            pointer: '0'
+            pointerVariable: protectedFilesAccess
+          -
+            class_name: TestNodePort
+            id: 267
+            value: '0'
+            node: 20
+            variable: 30
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: sessionFilesAccess
+            pointer: '0'
+            pointerVariable: sessionFilesAccess
+      -
+        class_name: TestNode
+        id: 21
+        title: ''
+        type: 0
+        posX: 16806
+        posY: 14961
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 268
+            value: |
+              if(displayPVals){
+                .branch = "pvals"
+              } else{
+                .branch = "finish"
+              }
+            node: 21
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 269
+            value: null
+            node: 21
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 270
+            value: '0'
+            node: 21
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '0'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 271
+            value: ''
+            node: 21
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: pvals
+            pointer: '0'
+            pointerVariable: pvals
+          -
+            class_name: TestNodePort
+            id: 272
+            value: ''
+            node: 21
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 2
+            exposed: '1'
+            name: finish
+            pointer: '0'
+            pointerVariable: finish
+          -
+            class_name: TestNodePort
+            id: 273
+            value: ''
+            node: 21
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPvals
+          -
+            class_name: TestNodePort
+            id: 274
+            value: ''
+            node: 21
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: .branch
+            pointer: '0'
+            pointerVariable: .branch
+      -
+        class_name: TestNode
+        id: 22
+        title: ''
+        type: 0
+        posX: 15394
+        posY: 14704
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 275
+            value: |
+              for(i in 1:length(questionTableName)){
+                if(updating){
+                  print("UPDATING")
+                  questionTable <- questionTableName[i];
+                  print(questionTable)
+                  questionQuery <- concerto.table.query(paste("select id from ",questionTable, sep = ""))
+                  ids <- unique(questionQuery[["id"]])
+                  #print(ids)
+              
+                  for(j in 1:length(ids)){
+                    currId <- ids[j]
+                    pVals <- subset(responseTable, currId == id)
+                    if(length(pVals[["id"]])>0){
+                      #print(pVals)
+                      p1 <- pVals[["p1"]][1]
+                      p2 <- pVals[["p2"]][1]
+                      #print(paste(session,":", p1, p2))
+                      concerto.table.query(paste("UPDATE",questionTable,"  SET p1 =",p1,",p2 =",p2,"WHERE id =",currId))
+                      print(paste("Updated:",currId))
+              
+                    }else{
+                      print(paste("question not found in question bank: ",currId))
+                    }
+                  }
+                }
+              }
+              #print(questionQuery)
+              #print(sessions)
+            node: 22
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 276
+            value: null
+            node: 22
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 277
+            value: '0'
+            node: 22
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 278
+            value: ''
+            node: 22
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: questionTableName
+            pointer: '0'
+            pointerVariable: questionTableName
+          -
+            class_name: TestNodePort
+            id: 279
+            value: ''
+            node: 22
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 280
+            value: 'TRUE'
+            node: 22
+            variable: null
+            string: '1'
+            defaultValue: '0'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: updating
+            pointer: '0'
+            pointerVariable: updating
+      -
+        class_name: TestNode
+        id: 23
+        title: 'Item Setup Eval'
+        type: 0
+        posX: 14922
+        posY: 15295
+        flowTest: 6
+        sourceTest: 4
+        sourceTestName: eval
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 281
+            value: |
+              iterations <- strtoi(iterations)
+              numBins <- strtoi(numBins)
+              print(typeof(iterations))
+              print(typeof(numBins))
+              
+              displayPVals <- eval(parse(text = displayPVals))
+              displayThetas <- eval(parse(text = displayThetas))
+              updating <- eval(parse(text = updating))
+            node: 23
+            variable: 38
+            string: '1'
+            defaultValue: '0'
+            dynamic: '0'
+            type: 0
+            exposed: '0'
+            name: code
+            pointer: '0'
+            pointerVariable: code
+          -
+            class_name: TestNodePort
+            id: 282
+            value: null
+            node: 23
+            variable: 40
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '0'
+            name: result
+            pointer: '0'
+            pointerVariable: result
+          -
+            class_name: TestNodePort
+            id: 283
+            value: '0'
+            node: 23
+            variable: 39
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+          -
+            class_name: TestNodePort
+            id: 284
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 285
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 286
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 287
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 288
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 289
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 290
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 291
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 292
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 0
+            exposed: '1'
+            name: updating
+            pointer: '0'
+            pointerVariable: updating
+          -
+            class_name: TestNodePort
+            id: 293
+            value: ''
+            node: 23
+            variable: null
+            string: '1'
+            defaultValue: '1'
+            dynamic: '1'
+            type: 1
+            exposed: '1'
+            name: updating
+            pointer: '0'
+            pointerVariable: updating
+      -
+        class_name: TestNode
+        id: 24
+        title: ''
+        type: 0
+        posX: 15938
+        posY: 15183
+        flowTest: 6
+        sourceTest: 5
+        sourceTestName: rescoreLogic2
+        sourceTestDescription: ''
+        ports:
+          -
+            class_name: TestNodePort
+            id: 294
+            value: null
+            node: 24
+            variable: 41
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 295
+            value: null
+            node: 24
+            variable: 43
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 296
+            value: null
+            node: 24
+            variable: 46
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 297
+            value: null
+            node: 24
+            variable: 48
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: numBins
+            pointer: '0'
+            pointerVariable: numBins
+          -
+            class_name: TestNodePort
+            id: 298
+            value: null
+            node: 24
+            variable: 50
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 299
+            value: null
+            node: 24
+            variable: 52
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 300
+            value: null
+            node: 24
+            variable: 54
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 301
+            value: null
+            node: 24
+            variable: 56
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 0
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 302
+            value: null
+            node: 24
+            variable: 42
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: displayPVals
+            pointer: '0'
+            pointerVariable: displayPVals
+          -
+            class_name: TestNodePort
+            id: 303
+            value: null
+            node: 24
+            variable: 44
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: displayThetas
+            pointer: '0'
+            pointerVariable: displayThetas
+          -
+            class_name: TestNodePort
+            id: 304
+            value: null
+            node: 24
+            variable: 45
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: htmlStr
+            pointer: '0'
+            pointerVariable: htmlStr
+          -
+            class_name: TestNodePort
+            id: 305
+            value: null
+            node: 24
+            variable: 47
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: iterations
+            pointer: '0'
+            pointerVariable: iterations
+          -
+            class_name: TestNodePort
+            id: 306
+            value: null
+            node: 24
+            variable: 51
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: pTable
+            pointer: '0'
+            pointerVariable: pTable
+          -
+            class_name: TestNodePort
+            id: 307
+            value: null
+            node: 24
+            variable: 53
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: questionTable
+            pointer: '0'
+            pointerVariable: questionTable
+          -
+            class_name: TestNodePort
+            id: 308
+            value: null
+            node: 24
+            variable: 55
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: responseTable
+            pointer: '0'
+            pointerVariable: responseTable
+          -
+            class_name: TestNodePort
+            id: 309
+            value: null
+            node: 24
+            variable: 57
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 1
+            exposed: '1'
+            name: sessions
+            pointer: '0'
+            pointerVariable: sessions
+          -
+            class_name: TestNodePort
+            id: 310
+            value: '0'
+            node: 24
+            variable: 49
+            string: '1'
+            defaultValue: '1'
+            dynamic: '0'
+            type: 2
+            exposed: '1'
+            name: out
+            pointer: '0'
+            pointerVariable: out
+    nodesConnections:
+      -
+        class_name: TestNodeConnection
+        id: 40
+        flowTest: 6
+        sourceNode: 12
+        sourcePort: 131
+        destinationNode: 11
+        destinationPort: 122
+        returnFunction: tablesOptionStr
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 41
+        flowTest: 6
+        sourceNode: 12
+        sourcePort: 130
+        destinationNode: 11
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 42
+        flowTest: 6
+        sourceNode: 14
+        sourcePort: 152
+        destinationNode: 16
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 43
+        flowTest: 6
+        sourceNode: 15
+        sourcePort: 172
+        destinationNode: 14
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 44
+        flowTest: 6
+        sourceNode: 14
+        sourcePort: 155
+        destinationNode: 24
+        destinationPort: 299
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 45
+        flowTest: 6
+        sourceNode: 14
+        sourcePort: 156
+        destinationNode: 24
+        destinationPort: 300
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 46
+        flowTest: 6
+        sourceNode: 14
+        sourcePort: 157
+        destinationNode: 24
+        destinationPort: 301
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 47
+        flowTest: 6
+        sourceNode: 16
+        sourcePort: 189
+        destinationNode: 24
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 48
+        flowTest: 6
+        sourceNode: 17
+        sourcePort: 206
+        destinationNode: 18
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 49
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 310
+        destinationNode: 17
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 50
+        flowTest: 6
+        sourceNode: 17
+        sourcePort: 208
+        destinationNode: 18
+        destinationPort: 215
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 51
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 218
+        destinationNode: 24
+        destinationPort: 296
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 52
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 224
+        destinationNode: 24
+        destinationPort: 300
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 53
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 225
+        destinationNode: 24
+        destinationPort: 301
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 54
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 216
+        destinationNode: 24
+        destinationPort: null
+        returnFunction: loop
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 55
+        flowTest: 6
+        sourceNode: 13
+        sourcePort: 145
+        destinationNode: 21
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 56
+        flowTest: 6
+        sourceNode: 14
+        sourcePort: 158
+        destinationNode: 24
+        destinationPort: 298
+        returnFunction: pTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 57
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 227
+        destinationNode: 19
+        destinationPort: null
+        returnFunction: pValues
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 58
+        flowTest: 6
+        sourceNode: 19
+        sourcePort: 246
+        destinationNode: 22
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 59
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 228
+        destinationNode: 24
+        destinationPort: 298
+        returnFunction: pTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 60
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 230
+        destinationNode: 13
+        destinationPort: null
+        returnFunction: thetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 61
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 217
+        destinationNode: 22
+        destinationPort: null
+        returnFunction: finish
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 62
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 232
+        destinationNode: 19
+        destinationPort: 247
+        returnFunction: htmlStr
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 63
+        flowTest: 6
+        sourceNode: 21
+        sourcePort: 272
+        destinationNode: 22
+        destinationPort: null
+        returnFunction: finish
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 64
+        flowTest: 6
+        sourceNode: 21
+        sourcePort: 271
+        destinationNode: 19
+        destinationPort: null
+        returnFunction: pvals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 65
+        flowTest: 6
+        sourceNode: 22
+        sourcePort: 277
+        destinationNode: 20
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 66
+        flowTest: 6
+        sourceNode: 20
+        sourcePort: 264
+        destinationNode: 10
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 67
+        flowTest: 6
+        sourceNode: 11
+        sourcePort: 124
+        destinationNode: 22
+        destinationPort: 278
+        returnFunction: questionTableName
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 68
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: null
+        destinationNode: 12
+        destinationPort: null
+        returnFunction: ''
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 69
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 223
+        destinationNode: 24
+        destinationPort: 299
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 70
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 102
+        destinationNode: 14
+        destinationPort: 154
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 71
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 103
+        destinationNode: 23
+        destinationPort: 284
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 72
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 283
+        destinationNode: 15
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 73
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 104
+        destinationNode: 23
+        destinationPort: 285
+        returnFunction: numBins
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 74
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 286
+        destinationNode: 24
+        destinationPort: 296
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 75
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 287
+        destinationNode: 24
+        destinationPort: 297
+        returnFunction: numBins
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 76
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 105
+        destinationNode: 23
+        destinationPort: 289
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 77
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 106
+        destinationNode: 23
+        destinationPort: 288
+        returnFunction: displayThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 78
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 290
+        destinationNode: 24
+        destinationPort: 294
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 79
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 291
+        destinationNode: 24
+        destinationPort: 295
+        returnFunction: displayThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 80
+        flowTest: 6
+        sourceNode: 11
+        sourcePort: 121
+        destinationNode: 23
+        destinationPort: null
+        returnFunction: out
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 81
+        flowTest: 6
+        sourceNode: 9
+        sourcePort: 107
+        destinationNode: 23
+        destinationPort: 292
+        returnFunction: updating
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 82
+        flowTest: 6
+        sourceNode: 23
+        sourcePort: 293
+        destinationNode: 22
+        destinationPort: 280
+        returnFunction: updating
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 83
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 302
+        destinationNode: 21
+        destinationPort: 273
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 84
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 302
+        destinationNode: 18
+        destinationPort: 229
+        returnFunction: displayPVals
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 85
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 303
+        destinationNode: 18
+        destinationPort: 231
+        returnFunction: displayThetas
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 86
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 304
+        destinationNode: 13
+        destinationPort: 146
+        returnFunction: htmlStr
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 87
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 305
+        destinationNode: 17
+        destinationPort: 207
+        returnFunction: iterations
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 88
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 306
+        destinationNode: 18
+        destinationPort: 226
+        returnFunction: pTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 89
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 307
+        destinationNode: 18
+        destinationPort: 220
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 90
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 308
+        destinationNode: 18
+        destinationPort: 221
+        returnFunction: responseTable
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 91
+        flowTest: 6
+        sourceNode: 24
+        sourcePort: 309
+        destinationNode: 18
+        destinationPort: 222
+        returnFunction: sessions
+        defaultReturnFunction: '1'
+      -
+        class_name: TestNodeConnection
+        id: 92
+        flowTest: 6
+        sourceNode: 18
+        sourcePort: 223
+        destinationNode: 22
+        destinationPort: 279
+        returnFunction: questionTable
+        defaultReturnFunction: '1'
+    baseTemplate: null
+    tags: ''
+    groups: ''
+    protected: '0'
+    starterContent: false
+    hash: 393042fea5110b25cbe55f2ac2670f3b0ccb10d2
+  -
+    class_name: TestWizard
+    id: 3
+    name: rescoreWizard2.0
+    description: ''
+    accessibility: 0
+    archived: '0'
+    steps:
+      -
+        class_name: TestWizardStep
+        id: 3
+        title: Setup
+        description: ''
+        orderNum: 0
+        colsNum: 0
+        wizard: 3
+        params:
+          -
+            class_name: TestWizardParam
+            id: 12
+            label: 'Response Table'
+            description: ''
+            hideCondition: ''
+            type: 6
+            passableThroughUrl: '0'
+            value: ''
+            testVariable: 63
+            name: responseTable
+            wizardStep: 3
+            stepTitle: Setup
+            order: 1
+            wizard: 3
+            definition:
+              defvalue: ''
+              placeholder: 0
+      -
+        class_name: TestWizardStep
+        id: 4
+        title: Advanced
+        description: ''
+        orderNum: 1
+        colsNum: 0
+        wizard: 3
+        params:
+          -
+            class_name: TestWizardParam
+            id: 13
+            label: 'Display P Values?'
+            description: ''
+            hideCondition: ''
+            type: 4
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 58
+            name: displayPVals
+            wizardStep: 4
+            stepTitle: Advanced
+            order: 1
+            wizard: 3
+            definition:
+              defvalue: '0'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 14
+            label: 'Display Thetas?'
+            description: ''
+            hideCondition: ''
+            type: 4
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 59
+            name: displayThetas
+            wizardStep: 4
+            stepTitle: Advanced
+            order: 1
+            wizard: 3
+            definition:
+              defvalue: '0'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 15
+            label: 'Is Updating?'
+            description: ''
+            hideCondition: ''
+            type: 4
+            passableThroughUrl: '0'
+            value: '0'
+            testVariable: 64
+            name: updating
+            wizardStep: 4
+            stepTitle: Advanced
+            order: 1
+            wizard: 3
+            definition:
+              defvalue: '0'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 16
+            label: Iterations
+            description: ''
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: '40'
+            testVariable: 60
+            name: iterations
+            wizardStep: 4
+            stepTitle: Advanced
+            order: 0
+            wizard: 3
+            definition:
+              defvalue: '40'
+              placeholder: 0
+          -
+            class_name: TestWizardParam
+            id: 17
+            label: 'Number of Bins'
+            description: ''
+            hideCondition: ''
+            type: 0
+            passableThroughUrl: '0'
+            value: '10'
+            testVariable: 61
+            name: numBins
+            wizardStep: 4
+            stepTitle: Advanced
+            order: 0
+            wizard: 3
+            definition:
+              defvalue: '10'
+              placeholder: 0
+    test: 6
+    groups: ''
+    starterContent: false
+    hash: e25b013b1eaf7a4a0c797f29297d852a641cbb79
+  -
+    class_name: Test
+    id: 7
+    name: Rescore2.0
+    accessibility: 0
+    archived: '0'
+    visibility: 0
+    type: 1
+    code: ''
+    description: ''
+    variables:
+      -
+        class_name: TestVariable
+        id: 65
+        name: displayPVals
+        type: 0
+        description: 'if you are going to display the P values at the end.'
+        passableThroughUrl: '0'
+        value: '0'
+        test: 7
+        parentVariable: 58
+      -
+        class_name: TestVariable
+        id: 66
+        name: displayThetas
+        type: 0
+        description: 'if you are going to display the thetas at the end'
+        passableThroughUrl: '0'
+        value: '0'
+        test: 7
+        parentVariable: 59
+      -
+        class_name: TestVariable
+        id: 67
+        name: iterations
+        type: 0
+        description: 'number of iterations to complete'
+        passableThroughUrl: '0'
+        value: ''
+        test: 7
+        parentVariable: 60
+      -
+        class_name: TestVariable
+        id: 68
+        name: numBins
+        type: 0
+        description: 'number of bins'
+        passableThroughUrl: '0'
+        value: ''
+        test: 7
+        parentVariable: 61
+      -
+        class_name: TestVariable
+        id: 69
+        name: out
+        type: 2
+        description: ''
+        passableThroughUrl: '0'
+        value: '0'
+        test: 7
+        parentVariable: 62
+      -
+        class_name: TestVariable
+        id: 70
+        name: responseTable
+        type: 0
+        description: 'name of the response table to be used'
+        passableThroughUrl: '0'
+        value: ''
+        test: 7
+        parentVariable: 63
+      -
+        class_name: TestVariable
+        id: 71
+        name: updating
+        type: 0
+        description: 'if the script should update question tables or not'
+        passableThroughUrl: '0'
+        value: '0'
+        test: 7
+        parentVariable: 64
+    sourceWizard: 3
+    sourceWizardTest: 119
+    nodes: {  }
+    nodesConnections: {  }
+    baseTemplate: null
+    tags: ''
+    groups: ''
+    protected: '0'
+    starterContent: false
+    hash: fe64803507f29bf9c1a4792360906ab441f4ca61
