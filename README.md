@@ -180,7 +180,9 @@ Please fill in the required components exactly as stated in this document. Under
 This process should now have created a Key Pair called concerto.
 This Key Pair is now listed within the Key Pairs on your account
 
-Once the Key Pair has been created, close the web page by clicking the "X" button on the tab of your browser. This is an important step, as not closing the tab may result in an error later.
+Once the Key Pair has been created, close the web page by clicking the "X" button on the tab of your browser, along with all other open AWS webpages (Important). This is an important step, as not closing the tab may result in an error later.
+
+Possible errors could include having to enter email address & domain on AWS.
 
 ![AWS Close Tab](doc-assets/images/aws-close-tab.png)
 
